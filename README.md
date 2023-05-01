@@ -40,10 +40,10 @@ model = TranslatorCT2fromHfHub(
 outputs = model.generate(
     text=["How do you call a fast Flan-ingo?", "Translate to german: How are you doing?"],
     # use arguments specifically to ctranslate2.Translator below:
-    min_decoding_length=24,
-    max_decoding_length=32,
+    min_decoding_length=8,
+    max_decoding_length=16,
     max_input_length=512,
-    beam_size=5
+    beam_size=3
 )
 print(outputs)
 ```
