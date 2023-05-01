@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 1.0.0 documentation</title>
+  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 1.0.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> hf_hub_ctranslate2
           </a>
               <div class="version">
-                1.0.0
+                1.0.2
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -112,10 +112,10 @@
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
     <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;How do you call a fast Flan-ingo?&quot;</span><span class="p">,</span> <span class="s2">&quot;Translate to german: How are you doing?&quot;</span><span class="p">],</span>
     <span class="c1"># use arguments specifically to ctranslate2.Translator below:</span>
-    <span class="n">min_decoding_length</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span>
-    <span class="n">max_decoding_length</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">min_decoding_length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+    <span class="n">max_decoding_length</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
     <span class="n">max_input_length</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
-    <span class="n">beam_size</span><span class="o">=</span><span class="mi">5</span>
+    <span class="n">beam_size</span><span class="o">=</span><span class="mi">3</span>
 <span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
