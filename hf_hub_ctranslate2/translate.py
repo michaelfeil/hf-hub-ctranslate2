@@ -1,7 +1,7 @@
 import ctranslate2
 from transformers import AutoTokenizer
 
-from typing import Any, Literal, Union, List, Optional
+from typing import Any, Literal, Union, List
 import os
 
 from hf_hub_ctranslate2._private.utils import download_model
