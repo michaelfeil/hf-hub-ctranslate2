@@ -21,7 +21,7 @@ jobs:
         python: ['3.7','3.8','3.9']
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python 3.x
       uses: actions/setup-python@v2
       with:
@@ -65,14 +65,14 @@ jobs:
     # only run if pytest successfull
     steps:
     - name: Checkout current branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         path: 'branch-dir'
         
     - name: Checkout gh-pages branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
-        ref: 'refs/heads/gh-pages'
+        ref: 'gh-pages'
         path: 'gh-pages-dir'
 
     - name: Set up Python 3.8
