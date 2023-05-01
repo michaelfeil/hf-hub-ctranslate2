@@ -1,8 +1,6 @@
-import os
-import ctranslate2
 from typing import Optional
 import huggingface_hub
-from transformers import AutoTokenizer
+
 from tqdm.auto import tqdm
 
 
@@ -18,10 +16,10 @@ def download_model(
 
     Args:
       model_name: repo name on HF Hub e.g.  "michaelfeil/ct2fast-flan-alpaca-base"
-      output_dir: Directory where the model should be saved. If not set, the model is saved in
-        the cache directory.
-      local_files_only:  If True, avoid downloading the file and return the path to the local
-        cached file if it exists.
+      output_dir: Directory where the model should be saved. If not set,
+         the model is saved in  the cache directory.
+      local_files_only:  If True, avoid downloading the file and return the
+        path to the local  cached file if it exists.
       cache_dir: Path to the folder where cached files are stored.
 
     Returns:

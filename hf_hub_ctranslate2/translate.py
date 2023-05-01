@@ -95,32 +95,34 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         Args:
             text (Union[str, List[str]]): Input texts
             max_batch_size (int, optional): Batch size. Defaults to 0.
-            batch_type (str, optional): _description_. Defaults to "examples".
+            batch_type (str, optional): _. Defaults to "examples".
             asynchronous (bool, optional): Only False supported. Defaults to False.
-            beam_size (int, optional): _description_. Defaults to 2.
-            patience (float, optional): _description_. Defaults to 1.
-            num_hypotheses (int, optional): _description_. Defaults to 1.
-            length_penalty (float, optional): _description_. Defaults to 1.
-            coverage_penalty (float, optional): _description_. Defaults to 0.
-            repetition_penalty (float, optional): _description_. Defaults to 1.
-            no_repeat_ngram_size (int, optional): _description_. Defaults to 0.
-            disable_unk (bool, optional): _description_. Defaults to False.
-            suppress_sequences (Optional[List[List[str]]], optional): _description_. Defaults to None.
-            end_token (Optional[Union[str, List[str], List[int]]], optional): _description_. Defaults to None.
-            return_end_token (bool, optional): _description_. Defaults to False.
-            prefix_bias_beta (float, optional): _description_. Defaults to 0.
-            max_input_length (int, optional): _description_. Defaults to 1024.
-            max_decoding_length (int, optional): _description_. Defaults to 256.
-            min_decoding_length (int, optional): _description_. Defaults to 1.
-            use_vmap (bool, optional): _description_. Defaults to False.
-            return_scores (bool, optional): _description_. Defaults to False.
-            return_attention (bool, optional): _description_. Defaults to False.
-            return_alternatives (bool, optional): _description_. Defaults to False.
-            min_alternative_expansion_prob (float, optional): _description_. Defaults to 0.
-            sampling_topk (int, optional): _description_. Defaults to 1.
-            sampling_temperature (float, optional): _description_. Defaults to 1.
-            replace_unknowns (bool, optional): _description_. Defaults to False.
-            callback (_type_, optional): _description_. Defaults to None.
+            beam_size (int, optional): _. Defaults to 2.
+            patience (float, optional): _. Defaults to 1.
+            num_hypotheses (int, optional): _. Defaults to 1.
+            length_penalty (float, optional): _. Defaults to 1.
+            coverage_penalty (float, optional): _. Defaults to 0.
+            repetition_penalty (float, optional): _. Defaults to 1.
+            no_repeat_ngram_size (int, optional): _. Defaults to 0.
+            disable_unk (bool, optional): _. Defaults to False.
+            suppress_sequences (Optional[List[List[str]]], optional): _.
+               Defaults to None.
+            end_token (Optional[Union[str, List[str], List[int]]], optional): _.
+               Defaults to None.
+            return_end_token (bool, optional): _. Defaults to False.
+            prefix_bias_beta (float, optional): _. Defaults to 0.
+            max_input_length (int, optional): _. Defaults to 1024.
+            max_decoding_length (int, optional): _. Defaults to 256.
+            min_decoding_length (int, optional): _. Defaults to 1.
+            use_vmap (bool, optional): _. Defaults to False.
+            return_scores (bool, optional): _. Defaults to False.
+            return_attention (bool, optional): _. Defaults to False.
+            return_alternatives (bool, optional): _. Defaults to False.
+            min_alternative_expansion_prob (float, optional): _. Defaults to 0.
+            sampling_topk (int, optional): _. Defaults to 1.
+            sampling_temperature (float, optional): _. Defaults to 1.
+            replace_unknowns (bool, optional): _. Defaults to False.
+            callback (_type_, optional): _. Defaults to None.
 
         Returns:
             Union[str, List[str]]: text as output, if list, same len as input
@@ -160,27 +162,29 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
         Args:
             text (str | List[str]): Input texts
-            max_batch_size (int, optional): _description_. Defaults to 0.
-            batch_type (str, optional): _description_. Defaults to 'examples'.
-            asynchronous (bool, optional): _description_. Defaults to False.
-            beam_size (int, optional): _description_. Defaults to 1.
-            patience (float, optional): _description_. Defaults to 1.
-            num_hypotheses (int, optional): _description_. Defaults to 1.
-            length_penalty (float, optional): _description_. Defaults to 1.
-            repetition_penalty (float, optional): _description_. Defaults to 1.
-            no_repeat_ngram_size (int, optional): _description_. Defaults to 0.
-            disable_unk (bool, optional): _description_. Defaults to False.
-            suppress_sequences (Optional[List[List[str]]], optional): _description_. Defaults to None.
-            end_token (Optional[Union[str, List[str], List[int]]], optional): _description_. Defaults to None.
-            return_end_token (bool, optional): _description_. Defaults to False.
-            max_length (int, optional): _description_. Defaults to 512.
-            min_length (int, optional): _description_. Defaults to 0.
-            include_prompt_in_result (bool, optional): _description_. Defaults to True.
-            return_scores (bool, optional): _description_. Defaults to False.
-            return_alternatives (bool, optional): _description_. Defaults to False.
-            min_alternative_expansion_prob (float, optional): _description_. Defaults to 0.
-            sampling_topk (int, optional): _description_. Defaults to 1.
-            sampling_temperature (float, optional): _description_. Defaults to 1.
+            max_batch_size (int, optional): _. Defaults to 0.
+            batch_type (str, optional): _. Defaults to 'examples'.
+            asynchronous (bool, optional): _. Defaults to False.
+            beam_size (int, optional): _. Defaults to 1.
+            patience (float, optional): _. Defaults to 1.
+            num_hypotheses (int, optional): _. Defaults to 1.
+            length_penalty (float, optional): _. Defaults to 1.
+            repetition_penalty (float, optional): _. Defaults to 1.
+            no_repeat_ngram_size (int, optional): _. Defaults to 0.
+            disable_unk (bool, optional): _. Defaults to False.
+            suppress_sequences (Optional[List[List[str]]], optional): _.
+                Defaults to None.
+            end_token (Optional[Union[str, List[str], List[int]]], optional): _.
+                Defaults to None.
+            return_end_token (bool, optional): _. Defaults to False.
+            max_length (int, optional): _. Defaults to 512.
+            min_length (int, optional): _. Defaults to 0.
+            include_prompt_in_result (bool, optional): _. Defaults to True.
+            return_scores (bool, optional): _. Defaults to False.
+            return_alternatives (bool, optional): _. Defaults to False.
+            min_alternative_expansion_prob (float, optional): _. Defaults to 0.
+            sampling_topk (int, optional): _. Defaults to 1.
+            sampling_temperature (float, optional): _. Defaults to 1.
 
         Returns:
             str | List[str]: text as output, if list, same len as input

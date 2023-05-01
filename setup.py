@@ -10,7 +10,7 @@ with open("hf_hub_ctranslate2/__init__.py", "r", encoding="utf-8") as fh:
         if "__version__" in l and "=" in l:
             print(l)
             version = l.split("__version__")[-1]
-            version = version.replace("=","").replace("'","").replace('"',"").strip()
+            version = version.replace("=", "").replace("'", "").replace('"', "").strip()
             break
 if len(version.split(".")) != 3:
     raise ValueError(f"Version incorrect: {version}")
@@ -39,5 +39,5 @@ setup(
         "transformers>=4.28.0",
         "huggingface-hub",
         "typing_extensions",
-    ]
+    ],
 )
