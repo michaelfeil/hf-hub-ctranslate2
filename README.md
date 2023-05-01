@@ -28,16 +28,18 @@ model = GeneratorCT2fromHfHub(
 )
 outputs = model.generate(
     text=["How do you call a fast Flan-ingo?", "User: How are you doing?"]
+    # add arguments specifically to ctranslate2.Generator here
 )
 
 # download ctranslate.Translator repos from Huggingface Hub (T5, ..)
 model_name_2 = "michaelfeil/ct2fast-flan-alpaca-base"
-model = GeneratorCT2fromHfHub(
+model = TranslatorCT2fromHfHub(
         # load in int8 on CUDA
         model_name_or_path=model_name_2, device="cuda", compute_type="int8_float16"
 )
 outputs = model.generate(
     text=["How do you call a fast Flan-ingo?", "Translate to german: How are you doing?"],
+    # use arguments specifically to ctranslate2.Translator below:
     min_decoding_length=24,
     max_decoding_length=32,
     max_input_length=512,
