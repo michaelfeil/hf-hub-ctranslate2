@@ -3,11 +3,11 @@ name: Python pytest
 on: 
   push:
     branches:
-    - master
+    - main
     - dev
   pull_request:
     branches:
-    - master
+    - main
     - dev
   release: 
     types: [edited, created]
