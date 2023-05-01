@@ -13,16 +13,17 @@ from hf_hub_ctranslate2._private.utils import download_model
 
 
 class CTranslate2ModelfromHuggingfaceHub:
+    """CTranslate2 compatibility class for Translator and Generator"""
+
     def __init__(
         self,
         model_name_or_path: str,
-        device="cuda",
+        device: Literal["cpu", "cuda"] = "cuda",
         device_index=0,
-        compute_type="int8_float16",
-        tokenizer: Union[None, AutoTokenizer] = None,
+        compute_type: Literal["int8_float16", "int8"] = "int8_float16",
+        tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs: dict = {},
     ):
-        """CTranslate2 compatibility class for Translator and Generator"""
         # adaptions from https://github.com/guillaumekln/faster-whisper
         if os.path.isdir(model_name_or_path):
             model_path = model_name_or_path
@@ -64,12 +65,22 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def __init__(
         self,
         model_name_or_path: str,
-        device="cuda",
+        device: Literal["cpu", "cuda"] = "cuda",
         device_index=0,
-        compute_type="int8_float16",
+        compute_type: Literal["int8_float16", "int8"] = "int8_float16",
         tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs={},
     ):
+        """for ctranslate2.Translator models
+
+        Args:
+            model_name_or_path (str): _description_
+            device (Literal[&quot;cpu&quot;, &quot;cuda&quot;], optional): _description_. Defaults to "cuda".
+            device_index (int, optional): _description_. Defaults to 0.
+            compute_type (Literal[&quot;int8_float16&quot;, &quot;int8&quot;], optional): _description_. Defaults to "int8_float16".
+            tokenizer (Union[AutoTokenizer, None], optional): _description_. Defaults to None.
+            hub_kwargs (dict, optional): _description_. Defaults to {}.
+        """
         self.ctranslate_class = ctranslate2.Translator
         super().__init__(
             model_name_or_path,
@@ -134,12 +145,22 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def __init__(
         self,
         model_name_or_path: str,
-        device="cuda",
+        device: Literal["cpu", "cuda"] = "cuda",
         device_index=0,
         compute_type: Literal["int8_float16", "int8"] = "int8_float16",
         tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs={},
     ):
+        """for ctranslate2.Generator models
+
+        Args:
+            model_name_or_path (str): _description_
+            device (Literal[&quot;cpu&quot;, &quot;cuda&quot;], optional): _description_. Defaults to "cuda".
+            device_index (int, optional): _description_. Defaults to 0.
+            compute_type (Literal[&quot;int8_float16&quot;, &quot;int8&quot;], optional): _description_. Defaults to "int8_float16".
+            tokenizer (Union[AutoTokenizer, None], optional): _description_. Defaults to None.
+            hub_kwargs (dict, optional): _description_. Defaults to {}.
+        """
         self.ctranslate_class = ctranslate2.Generator
         super().__init__(
             model_name_or_path,
