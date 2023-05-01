@@ -11,7 +11,9 @@ on:
     - dev
   release: 
     types: [edited, created]
-    
+
+permissions: write-all
+
 jobs:
   build-linux:
     runs-on: ubuntu-latest
