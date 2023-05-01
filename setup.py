@@ -3,16 +3,23 @@ from setuptools import find_packages, setup
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-import os
-import sys
+version = " . "
+with open("hf_hub_ctranslate2/__init__.py", "r", encoding="utf-8") as fh:
+    lines = fh.readlines()
+    for l in lines[::-1]:
+        if "__version__" in l and "=" in l:
+            print(l)
+            version = l.split("__version__")[-1]
+            version = version.replace("=","").replace("'","").replace('"',"").strip()
+            break
+if len(version.split(".")) != 3:
+    raise ValueError(f"Version incorrect: {version}")
 
-sys.path.insert(0, os.path.dirname(os.path.abspath("__file__")))
-import hf_hub_ctranslate2
 
 setup(
     name="hf_hub_ctranslate2",
-    packages=find_packages(),
-    version=hf_hub_ctranslate2.__version__,
+    packages=find_packages(include="hf_hub_ctranslate2"),
+    version=version,
     description=("Connecting Transfromers on HuggingfaceHub with Ctranslate2 "),
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -28,8 +35,8 @@ setup(
         "Operating System :: POSIX :: Linux",
     ],
     install_requires=[
-        "ctranslate2>=3.13",
-        "transformers>=4.28.*",
+        "ctranslate2>=3.13.0",
+        "transformers>=4.28.0",
         "huggingface-hub",
-    ],
+    ]
 )
