@@ -38,5 +38,6 @@ setup(
         "ctranslate2>=3.13.0",
         "transformers>=4.28.0",
         "huggingface-hub",
+        "typing_extensions",
     ]
 )

@@ -1,7 +1,12 @@
 import ctranslate2
 from transformers import AutoTokenizer
 
-from typing import Any, Literal, Union, List
+try:
+    from typing import Literal
+except ImportError:
+    from typing_extensions import Literal
+
+from typing import Any, Union, List
 import os
 
 from hf_hub_ctranslate2._private.utils import download_model
@@ -18,6 +23,7 @@ class CTranslate2ModelfromHuggingfaceHub:
         hub_kwargs: dict = {},
     ):
         """CTranslate2 compatibility class for Translator and Generator"""
+        # adaptions from https://github.com/guillaumekln/faster-whisper
         if os.path.isdir(model_name_or_path):
             model_path = model_name_or_path
         else:

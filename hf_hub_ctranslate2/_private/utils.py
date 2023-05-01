@@ -1,7 +1,6 @@
 import os
 import ctranslate2
-from typing import Any, Optional, Literal, Union, List
-
+from typing import Optional
 import huggingface_hub
 from transformers import AutoTokenizer
 from tqdm.auto import tqdm
