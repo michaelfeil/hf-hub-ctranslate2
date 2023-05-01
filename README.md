@@ -15,20 +15,20 @@ Connecting Transfromers on HuggingfaceHub with Ctranslate2 - a small utility for
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
+--------
 ## Usage:
 ```python
+# download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)
 from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub
 
-# download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)
 model_name_1="michaelfeil/ct2fast-pythia-160m"
 model = GeneratorCT2fromHfHub(
     # load in int8 on CPU
     model_name_or_path=model_name_1, device="cpu", compute_type="int8"
 )
 outputs = model.generate(
-    ["How do you call a fast Flan-ingo?", "User: How are you doing?"]
+    text=["How do you call a fast Flan-ingo?", "User: How are you doing?"]
 )
-print(outputs)
 
 # download ctranslate.Translator repos from Huggingface Hub (T5, ..)
 model_name_2 = "michaelfeil/ct2fast-flan-alpaca-base"
@@ -37,17 +37,18 @@ model = GeneratorCT2fromHfHub(
         model_name_or_path=model_name_2, device="cuda", compute_type="int8_float16"
 )
 outputs = model.generate(
-    ["How do you call a fast Flan-ingo?", "Translate to german: How are you doing?"]
+    text=["How do you call a fast Flan-ingo?", "Translate to german: How are you doing?"],
+    min_decoding_length=24,
+    max_decoding_length=32,
+    max_input_length=512,
+    beam_size=5
 )
 print(outputs)
-
 ```
 
 --------
 ## PYPI Install
 ```bash
-conda create --name transformer_env python=3.9 pip
-conda activate transformer_env
 pip install hf-hub-ctranslate2
 ```
 --------
