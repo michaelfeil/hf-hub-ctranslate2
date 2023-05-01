@@ -1,0 +1,7 @@
+hf_hub_ctranslate2
+==================
+
+.. toctree::
+   :maxdepth: 4
+
+   hf_hub_ctranslate2

@@ -1,0 +1,31 @@
+hf\_hub\_ctranslate2.translate
+==============================
+
+.. automodule:: hf_hub_ctranslate2.translate
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CTranslate2ModelfromHuggingfaceHub
+      GeneratorCT2fromHfHub
+      TranslatorCT2fromHfHub
+   
+   
+
+   
+   
+   
+
+
+
