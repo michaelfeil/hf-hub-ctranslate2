@@ -19,6 +19,7 @@ hf\_hub\_ctranslate2.translate
    
       CTranslate2ModelfromHuggingfaceHub
       GeneratorCT2fromHfHub
+      MultiLingualTranslatorCT2fromHfHub
       TranslatorCT2fromHfHub
    
    
