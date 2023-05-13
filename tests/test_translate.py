@@ -1,4 +1,4 @@
-from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub
+from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub, MultiLingualTranslatorCT2fromHfHub
 from hf_hub_ctranslate2._private.utils import download_model
 from transformers import AutoTokenizer
 
