@@ -17,6 +17,7 @@ Connecting Transfromers on HuggingfaceHub with Ctranslate2 - a small utility for
 
 --------
 ## Usage:
+#### Encoders:
 ```python
 # download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)
 from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub
@@ -30,7 +31,9 @@ outputs = model.generate(
     text=["How do you call a fast Flan-ingo?", "User: How are you doing?"]
     # add arguments specifically to ctranslate2.Generator here
 )
-
+```
+#### Encoder-Decoder:
+```python
 # download ctranslate.Translator repos from Huggingface Hub (T5, ..)
 model_name_2 = "michaelfeil/ct2fast-flan-alpaca-base"
 model = TranslatorCT2fromHfHub(
@@ -46,7 +49,9 @@ outputs = model.generate(
     beam_size=3
 )
 print(outputs)
-# translations
+```
+#### Encoder-Decoder for multilingual translations (m2m-100):
+```python
 model = MultiLingualTranslatorCT2fromHfHub(
     model_name_or_path="michaelfeil/ct2fast-m2m100_418M", device="cpu", compute_type="int8",
     tokenizer=AutoTokenizer.from_pretrained(f"facebook/m2m100_418M")
