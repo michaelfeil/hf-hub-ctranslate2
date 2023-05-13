@@ -17,7 +17,7 @@ Connecting Transfromers on HuggingfaceHub with Ctranslate2 - a small utility for
 
 --------
 ## Usage:
-#### Encoders:
+#### Decoder-only Transformer:
 ```python
 # download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)
 from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub
