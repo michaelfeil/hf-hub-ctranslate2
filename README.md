@@ -46,6 +46,17 @@ outputs = model.generate(
     beam_size=3
 )
 print(outputs)
+# translations
+model = MultiLingualTranslatorCT2fromHfHub(
+    model_name_or_path="michaelfeil/ct2fast-m2m100_418M", device="cpu", compute_type="int8",
+    tokenizer=AutoTokenizer.from_pretrained(f"facebook/m2m100_418M")
+)
+
+outputs = model.generate(
+    ["How do you call a fast Flamingo?", "Wie geht es dir?"],
+    src_lang=["en", "de"],
+    tgt_lang=["de", "fr"]
+)
 ```
 
 --------
