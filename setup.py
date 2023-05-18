@@ -19,9 +19,6 @@ if len(version.split(".")) != 3:
 setup(
     name="hf_hub_ctranslate2",
     packages=find_packages(where="hf_hub_ctranslate2"),
-    package_dir={
-        '': 'hf_hub_ctranslate2',
-    },
     version=version,
     description=("Connecting Transfromers on HuggingfaceHub with Ctranslate2 "),
     long_description=long_description,
