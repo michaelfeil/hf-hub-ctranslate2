@@ -1,6 +1,14 @@
 hf\_hub\_ctranslate2 package
 ============================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   hf_hub_ctranslate2.util
+
 Submodules
 ----------
 

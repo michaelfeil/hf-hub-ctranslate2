@@ -1,0 +1,21 @@
+hf\_hub\_ctranslate2.util package
+=================================
+
+Submodules
+----------
+
+hf\_hub\_ctranslate2.util.utils module
+--------------------------------------
+
+.. automodule:: hf_hub_ctranslate2.util.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: hf_hub_ctranslate2.util
+   :members:
+   :undoc-members:
+   :show-inheritance:

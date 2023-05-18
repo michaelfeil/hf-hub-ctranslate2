@@ -28,4 +28,5 @@
    :recursive:
 
    hf_hub_ctranslate2.translate
+   hf_hub_ctranslate2.util
 
