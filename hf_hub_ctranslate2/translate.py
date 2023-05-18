@@ -9,7 +9,7 @@ except ImportError:
 from typing import Any, Union, List
 import os
 
-import hf_hub_ctranslate2._private.utils as utils
+import hf_hub_ctranslate2._private.utils as _utils
 
 
 class CTranslate2ModelfromHuggingfaceHub:
@@ -29,10 +29,10 @@ class CTranslate2ModelfromHuggingfaceHub:
             model_path = model_name_or_path
         else:
             try:
-                model_path = utils.download_model(model_name_or_path, hub_kwargs=hub_kwargs)
+                model_path = _utils.download_model(model_name_or_path, hub_kwargs=hub_kwargs)
             except:
                 hub_kwargs["local_files_only"] = True
-                model_path = utils.download_model(model_name_or_path, hub_kwargs=hub_kwargs)
+                model_path = _utils.download_model(model_name_or_path, hub_kwargs=hub_kwargs)
         self.model = self.ctranslate_class(
             model_path,
             device=device,
@@ -40,10 +40,14 @@ class CTranslate2ModelfromHuggingfaceHub:
             compute_type=compute_type,
         )
 
-        if tokenizer is None:
-            self.tokenizer = AutoTokenizer.from_pretrained(model_path, fast=True)
-        else:
+        if tokenizer is not None:
             self.tokenizer = tokenizer
+        else:
+            if "tokenizer.json" in os.listdir(model_path):
+                self.tokenizer = AutoTokenizer.from_pretrained(model_path, fast=True)
+            if "tokenizer.json" in os.listdir(model_path):
+                self.tokenizer = AutoTokenizer.from_pretrained(model_path, fast=True)
+                
 
     def _forward(self, *args: Any, **kwds: Any) -> Any:
         raise NotImplementedError
