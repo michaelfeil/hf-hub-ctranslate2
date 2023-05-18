@@ -14,7 +14,7 @@ except ImportError:
 from typing import Any, Union, List
 import os
 
-from ._private import download_model as _download_model
+from hf_hub_ctranslate2.util import _download_model
 
 
 class CTranslate2ModelfromHuggingfaceHub:

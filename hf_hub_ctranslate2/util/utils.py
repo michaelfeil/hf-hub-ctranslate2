@@ -4,7 +4,7 @@ import huggingface_hub
 from tqdm.auto import tqdm
 
 
-def download_model(
+def _download_model(
     model_name: str,
     output_dir: Optional[str] = None,
     local_files_only: bool = False,
@@ -50,12 +50,12 @@ def download_model(
     return huggingface_hub.snapshot_download(
         model_name,
         allow_patterns=allow_patterns,
-        tqdm_class=disabled_tqdm,
+        tqdm_class=_disabled_tqdm,
         **kwargs,
     )
 
 
-class disabled_tqdm(tqdm):
+class _disabled_tqdm(tqdm):
     def __init__(self, *args, **kwargs):
         kwargs["disable"] = True
         super().__init__(*args, **kwargs)
