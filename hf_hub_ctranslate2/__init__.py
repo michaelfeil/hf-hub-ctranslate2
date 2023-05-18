@@ -3,4 +3,4 @@
 # __all__ = ["__version__", "TranslatorCT2fromHfHub", "GeneratorCT2fromHfHub", "MultiLingualTranslatorCT2fromHfHub", "_private"]
 from hf_hub_ctranslate2.translate import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub, MultiLingualTranslatorCT2fromHfHub
 
-__version__ = "2.0.2"
+__version__ = "2.0.3"
