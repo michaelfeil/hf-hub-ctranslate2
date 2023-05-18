@@ -1,5 +1,10 @@
 import ctranslate2
-from transformers import AutoTokenizer
+try:
+    from transformers import AutoTokenizer
+    autotokenizer_ok = True
+except ImportError:
+    AutoTokenizer = object
+    autotokenizer_ok = False
 
 try:
     from typing import Literal
@@ -44,9 +49,12 @@ class CTranslate2ModelfromHuggingfaceHub:
             self.tokenizer = tokenizer
         else:
             if "tokenizer.json" in os.listdir(model_path):
+                if not autotokenizer_ok:
+                    raise ValueError("`pip install transformers` missing to load AutoTokenizer.")
                 self.tokenizer = AutoTokenizer.from_pretrained(model_path, fast=True)
-            if "tokenizer.json" in os.listdir(model_path):
-                self.tokenizer = AutoTokenizer.from_pretrained(model_path, fast=True)
+            else:
+                raise ValueError("no suitable Tokenizer found. "
+                                 "Please set one via tokenizer=AutoTokenizer.from_pretrained(..) arg.")
                 
 
     def _forward(self, *args: Any, **kwds: Any) -> Any:
