@@ -14,7 +14,7 @@ except ImportError:
 from typing import Any, Union, List
 import os
 
-import hf_hub_ctranslate2._private.utils as _utils
+from ._private import download_model as _download_model
 
 
 class CTranslate2ModelfromHuggingfaceHub:
@@ -34,10 +34,10 @@ class CTranslate2ModelfromHuggingfaceHub:
             model_path = model_name_or_path
         else:
             try:
-                model_path = _utils.download_model(model_name_or_path, hub_kwargs=hub_kwargs)
+                model_path = _download_model(model_name_or_path, hub_kwargs=hub_kwargs)
             except:
                 hub_kwargs["local_files_only"] = True
-                model_path = _utils.download_model(model_name_or_path, hub_kwargs=hub_kwargs)
+                model_path = _download_model(model_name_or_path, hub_kwargs=hub_kwargs)
         self.model = self.ctranslate_class(
             model_path,
             device=device,
