@@ -1,5 +1,5 @@
 from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub, MultiLingualTranslatorCT2fromHfHub
-from hf_hub_ctranslate2._private.utils import download_model
+import hf_hub_ctranslate2._private.utils as utils
 from transformers import AutoTokenizer
 
 
@@ -51,7 +51,7 @@ def test_generator(model_name="michaelfeil/ct2fast-pythia-160m"):
 
 
 def test_generator_single(model_name="michaelfeil/ct2fast-pythia-160m"):
-    model_path = download_model(model_name)
+    model_path = utils.download_model(model_name)
     tokenizer = AutoTokenizer.from_pretrained(model_path)
 
     model = GeneratorCT2fromHfHub(
