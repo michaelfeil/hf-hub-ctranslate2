@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hf_hub_ctranslate2 package &mdash; hf_hub_ctranslate2 2.0.2 documentation</title>
+  <title>hf_hub_ctranslate2 package &mdash; hf_hub_ctranslate2 2.0.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -28,7 +28,7 @@
             <a href="index.html" class="icon icon-home"> hf_hub_ctranslate2
           </a>
               <div class="version">
-                2.0.2
+                2.0.3
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -271,175 +271,6 @@ callback (_type_, optional): _. Defaults to None.</p>
 <section id="module-hf_hub_ctranslate2">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-hf_hub_ctranslate2" title="Permalink to this headline"></a></h2>
 <p>Compatability between Huggingface and Ctranslate2.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.GeneratorCT2fromHfHub">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hf_hub_ctranslate2.</span></span><span class="sig-name descname"><span class="pre">GeneratorCT2fromHfHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'cpu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cuda'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'int8_float16'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'int8'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'int8_float16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">transformers.models.auto.tokenization_auto.AutoTokenizer</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hub_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.GeneratorCT2fromHfHub" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub" title="hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub"><code class="xref py py-class docutils literal notranslate"><span class="pre">hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.GeneratorCT2fromHfHub.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">forward_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">forward_kwds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.GeneratorCT2fromHfHub.generate" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
-<dl>
-<dt>Args:</dt><dd><p>text (str | List[str]): Input texts
-max_batch_size (int, optional): _. Defaults to 0.
-batch_type (str, optional): _. Defaults to ‘examples’.
-asynchronous (bool, optional): _. Defaults to False.
-beam_size (int, optional): _. Defaults to 1.
-patience (float, optional): _. Defaults to 1.
-num_hypotheses (int, optional): _. Defaults to 1.
-length_penalty (float, optional): _. Defaults to 1.
-repetition_penalty (float, optional): _. Defaults to 1.
-no_repeat_ngram_size (int, optional): _. Defaults to 0.
-disable_unk (bool, optional): _. Defaults to False.
-suppress_sequences (Optional[List[List[str]]], optional): _.</p>
-<blockquote>
-<div><p>Defaults to None.</p>
-</div></blockquote>
-<dl class="simple">
-<dt>end_token (Optional[Union[str, List[str], List[int]]], optional): _.</dt><dd><p>Defaults to None.</p>
-</dd>
-</dl>
-<p>return_end_token (bool, optional): _. Defaults to False.
-max_length (int, optional): _. Defaults to 512.
-min_length (int, optional): _. Defaults to 0.
-include_prompt_in_result (bool, optional): _. Defaults to True.
-return_scores (bool, optional): _. Defaults to False.
-return_alternatives (bool, optional): _. Defaults to False.
-min_alternative_expansion_prob (float, optional): _. Defaults to 0.
-sampling_topk (int, optional): _. Defaults to 1.
-sampling_temperature (float, optional): _. Defaults to 1.</p>
-</dd>
-<dt>Returns:</dt><dd><p>str | List[str]: text as output, if list, same len as input</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.GeneratorCT2fromHfHub.tokenize_decode">
-<span class="sig-name descname"><span class="pre">tokenize_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens_out</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.GeneratorCT2fromHfHub.tokenize_decode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hf_hub_ctranslate2.</span></span><span class="sig-name descname"><span class="pre">MultiLingualTranslatorCT2fromHfHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'cpu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cuda'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'int8_float16'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'int8'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'int8_float16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">transformers.models.auto.tokenization_auto.AutoTokenizer</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hub_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub" title="hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub"><code class="xref py py-class docutils literal notranslate"><span class="pre">hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_lang</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tgt_lang</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">forward_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">forward_kwds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub.generate" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
-<dl>
-<dt>Args:</dt><dd><p>text (Union[str, List[str]]): Input texts
-src_lang (Union[str, List[str]]): soruce language of the Input texts
-tgt_lang (Union[str, List[str]]): target language for outputs
-max_batch_size (int, optional): Batch size. Defaults to 0.
-batch_type (str, optional): _. Defaults to “examples”.
-asynchronous (bool, optional): Only False supported. Defaults to False.
-beam_size (int, optional): _. Defaults to 2.
-patience (float, optional): _. Defaults to 1.
-num_hypotheses (int, optional): _. Defaults to 1.
-length_penalty (float, optional): _. Defaults to 1.
-coverage_penalty (float, optional): _. Defaults to 0.
-repetition_penalty (float, optional): _. Defaults to 1.
-no_repeat_ngram_size (int, optional): _. Defaults to 0.
-disable_unk (bool, optional): _. Defaults to False.
-suppress_sequences (Optional[List[List[str]]], optional): _.</p>
-<blockquote>
-<div><p>Defaults to None.</p>
-</div></blockquote>
-<dl class="simple">
-<dt>end_token (Optional[Union[str, List[str], List[int]]], optional): _.</dt><dd><p>Defaults to None.</p>
-</dd>
-</dl>
-<p>return_end_token (bool, optional): _. Defaults to False.
-prefix_bias_beta (float, optional): _. Defaults to 0.
-max_input_length (int, optional): _. Defaults to 1024.
-max_decoding_length (int, optional): _. Defaults to 256.
-min_decoding_length (int, optional): _. Defaults to 1.
-use_vmap (bool, optional): _. Defaults to False.
-return_scores (bool, optional): _. Defaults to False.
-return_attention (bool, optional): _. Defaults to False.
-return_alternatives (bool, optional): _. Defaults to False.
-min_alternative_expansion_prob (float, optional): _. Defaults to 0.
-sampling_topk (int, optional): _. Defaults to 1.
-sampling_temperature (float, optional): _. Defaults to 1.
-replace_unknowns (bool, optional): _. Defaults to False.
-callback (_type_, optional): _. Defaults to None.</p>
-</dd>
-<dt>Returns:</dt><dd><p>Union[str, List[str]]: text as output, if list, same len as input</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub.tokenize_decode">
-<span class="sig-name descname"><span class="pre">tokenize_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens_out</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub.tokenize_decode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub.tokenize_encode">
-<span class="sig-name descname"><span class="pre">tokenize_encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.MultiLingualTranslatorCT2fromHfHub.tokenize_encode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.TranslatorCT2fromHfHub">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">hf_hub_ctranslate2.</span></span><span class="sig-name descname"><span class="pre">TranslatorCT2fromHfHub</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_name_or_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'cpu'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'cuda'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cuda'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'int8_float16'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'int8'</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'int8_float16'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tokenizer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">transformers.models.auto.tokenization_auto.AutoTokenizer</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hub_kwargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.TranslatorCT2fromHfHub" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub" title="hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub"><code class="xref py py-class docutils literal notranslate"><span class="pre">hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.TranslatorCT2fromHfHub.generate">
-<span class="sig-name descname"><span class="pre">generate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">forward_args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">forward_kwds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.TranslatorCT2fromHfHub.generate" title="Permalink to this definition"></a></dt>
-<dd><p>_summary_</p>
-<dl>
-<dt>Args:</dt><dd><p>text (Union[str, List[str]]): Input texts
-max_batch_size (int, optional): Batch size. Defaults to 0.
-batch_type (str, optional): _. Defaults to “examples”.
-asynchronous (bool, optional): Only False supported. Defaults to False.
-beam_size (int, optional): _. Defaults to 2.
-patience (float, optional): _. Defaults to 1.
-num_hypotheses (int, optional): _. Defaults to 1.
-length_penalty (float, optional): _. Defaults to 1.
-coverage_penalty (float, optional): _. Defaults to 0.
-repetition_penalty (float, optional): _. Defaults to 1.
-no_repeat_ngram_size (int, optional): _. Defaults to 0.
-disable_unk (bool, optional): _. Defaults to False.
-suppress_sequences (Optional[List[List[str]]], optional): _.</p>
-<blockquote>
-<div><p>Defaults to None.</p>
-</div></blockquote>
-<dl class="simple">
-<dt>end_token (Optional[Union[str, List[str], List[int]]], optional): _.</dt><dd><p>Defaults to None.</p>
-</dd>
-</dl>
-<p>return_end_token (bool, optional): _. Defaults to False.
-prefix_bias_beta (float, optional): _. Defaults to 0.
-max_input_length (int, optional): _. Defaults to 1024.
-max_decoding_length (int, optional): _. Defaults to 256.
-min_decoding_length (int, optional): _. Defaults to 1.
-use_vmap (bool, optional): _. Defaults to False.
-return_scores (bool, optional): _. Defaults to False.
-return_attention (bool, optional): _. Defaults to False.
-return_alternatives (bool, optional): _. Defaults to False.
-min_alternative_expansion_prob (float, optional): _. Defaults to 0.
-sampling_topk (int, optional): _. Defaults to 1.
-sampling_temperature (float, optional): _. Defaults to 1.
-replace_unknowns (bool, optional): _. Defaults to False.
-callback (_type_, optional): _. Defaults to None.</p>
-</dd>
-<dt>Returns:</dt><dd><p>Union[str, List[str]]: text as output, if list, same len as input</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="hf_hub_ctranslate2.TranslatorCT2fromHfHub.tokenize_decode">
-<span class="sig-name descname"><span class="pre">tokenize_decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tokens_out</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#hf_hub_ctranslate2.TranslatorCT2fromHfHub.tokenize_decode" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 
