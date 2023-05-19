@@ -67,14 +67,14 @@ class CTranslate2ModelfromHuggingfaceHub:
     def tokenize_decode(self, tokens_out, *args, **kwargs):
         raise NotImplementedError
 
-    def generate(self, text: Union[str, List[str]], encode_kwargs={}, *forward_args, **forward_kwds: Any):
+    def generate(self, text: Union[str, List[str]], encode_kwargs={}, decode_kwargs={}, *forward_args, **forward_kwds: Any):
         orig_type = list
         if isinstance(text, str):
             orig_type = str
             text = [text]
         token_list = self.tokenize_encode(text, **encode_kwargs)
         tokens_out = self._forward(token_list, *forward_args, **forward_kwds)
-        texts_out = self.tokenize_decode(tokens_out)
+        texts_out = self.tokenize_decode(tokens_out, **decode_kwargs)
         if orig_type == str:
             return texts_out[0]
         else:
@@ -122,11 +122,13 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             for i in range(len(tokens_out))
         ]
 
-    def generate(self, text: Union[str, List[str]], *forward_args, **forward_kwds: Any):
+    def generate(self, text: Union[str, List[str]], encode_tok_kwargs={}, decode_tok_kwargs={}, *forward_args, **forward_kwds: Any):
         """_summary_
 
         Args:
             text (Union[str, List[str]]): Input texts
+            encode_tok_kwargs (dict, optional): additional kwargs for tokenizer
+            decode_tok_kwargs (dict, optional): additional kwargs for tokenizer
             max_batch_size (int, optional): Batch size. Defaults to 0.
             batch_type (str, optional): _. Defaults to "examples".
             asynchronous (bool, optional): Only False supported. Defaults to False.
@@ -160,7 +162,7 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         Returns:
             Union[str, List[str]]: text as output, if list, same len as input
         """
-        return super().generate(text, *forward_args, **forward_kwds)
+        return super().generate(text, encode_kwargs=encode_tok_kwargs, decode_kwargs=decode_tok_kwargs, *forward_args, **forward_kwds)
 
 class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def __init__(
@@ -298,11 +300,13 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         ]
 
         
-    def generate(self, text: Union[str, List[str]], *forward_args, **forward_kwds: Any):
+    def generate(self, text: Union[str, List[str]], encode_tok_kwargs={}, decode_tok_kwargs={},  *forward_args, **forward_kwds: Any):
         """_summary_
 
         Args:
             text (str | List[str]): Input texts
+            encode_tok_kwargs (dict, optional): additional kwargs for tokenizer
+            decode_tok_kwargs (dict, optional): additional kwargs for tokenizer
             max_batch_size (int, optional): _. Defaults to 0.
             batch_type (str, optional): _. Defaults to 'examples'.
             asynchronous (bool, optional): _. Defaults to False.
@@ -330,5 +334,5 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         Returns:
             str | List[str]: text as output, if list, same len as input
         """
-        return super().generate(text, *forward_args, **forward_kwds)
+        return super().generate(text, encode_kwargs=encode_tok_kwargs, decode_kwargs=decode_tok_kwargs,  *forward_args, **forward_kwds)
     
