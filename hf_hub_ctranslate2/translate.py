@@ -117,7 +117,8 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def tokenize_decode(self, tokens_out, *args, **kwargs):
         return [
             self.tokenizer.decode(
-                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0], *args, **kwargs)
+                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0]),
+                *args, **kwargs
             )
             for i in range(len(tokens_out))
         ]
@@ -210,7 +211,8 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def tokenize_decode(self, tokens_out, *args, **kwargs):
         return [
             self.tokenizer.decode(
-                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0][1:], *args, **kwargs)
+                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0][1:]),
+                *args, **kwargs
             )
             for i in range(len(tokens_out))
         ]
