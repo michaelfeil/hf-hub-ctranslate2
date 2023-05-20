@@ -114,10 +114,10 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def _forward(self, *args, **kwds):
         return self.model.translate_batch(*args, **kwds)
     
-    def tokenize_decode(self, tokens_out, *args):
+    def tokenize_decode(self, tokens_out, *args, **kwargs):
         return [
             self.tokenizer.decode(
-                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0])
+                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0], *args, **kwargs)
             )
             for i in range(len(tokens_out))
         ]
@@ -207,10 +207,10 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             tokens.append(self.tokenizer.convert_ids_to_tokens(self.tokenizer.encode(t)))
         return tokens
     
-    def tokenize_decode(self, tokens_out, *args):
+    def tokenize_decode(self, tokens_out, *args, **kwargs):
         return [
             self.tokenizer.decode(
-                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0][1:])
+                self.tokenizer.convert_tokens_to_ids(tokens_out[i].hypotheses[0][1:], *args, **kwargs)
             )
             for i in range(len(tokens_out))
         ]
@@ -293,9 +293,9 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def _forward(self, *args, **kwds):
         return self.model.generate_batch(*args, **kwds)
         
-    def tokenize_decode(self, tokens_out, *args):
+    def tokenize_decode(self, tokens_out, *args, **kwargs):
         return [
-            self.tokenizer.decode(tokens_out[i].sequences_ids[0])
+            self.tokenizer.decode(tokens_out[i].sequences_ids[0], *args, **kwargs)
             for i in range(len(tokens_out))
         ]
 
