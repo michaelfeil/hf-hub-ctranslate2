@@ -7,6 +7,7 @@ def call(*args, **kwargs):
         raise ValueError(f"Output: {out}")
 
 def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP"):
+    print(f"converting {ORG}/{NAME} ")
     import re
     import datetime
     from huggingface_hub import HfApi, snapshot_download
@@ -21,7 +22,7 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP"):
     path = snapshot_download(
         f'{ORG}/{NAME}',
     )
-    files = os.listdir(path)
+    files = [f for f in os.listdir(path) if "." in f]
     filtered_f = [f for f in files if not ("model" in f or "config.json" == f)]
 
     conv_arg = [
@@ -40,9 +41,9 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP"):
     with open(os.path.join(tmp_dir,'README.md'),'r') as f:
         content = f.read()
     if "tags:" in content:
-        content = content.replace("tags:","tags:\n- ctranslate2\n- int8\n- float16")
+        content = content.replace("tags:","tags:\n- ctranslate2\n- int8\n- float16", 1)
     else:
-        content = content.replace("---","---\ntags:\n- ctranslate2\n- int8\n- float16\n")
+        content = content.replace("---","---\ntags:\n- ctranslate2\n- int8\n- float16\n", 1)
 
     end_header = [m.start() for m in re.finditer(r"---",content)]
     if len(end_header) > 1:
@@ -50,13 +51,14 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP"):
     else:
         end_header = 0
     conv_arg_nice = " ".join(conv_arg)
+    
     add_string = f"""
 # # Fast-Inference with Ctranslate2
 Speedup inference while reducing memory by 2x-4x using int8 inference in C++ on CPU or GPU.
 
 quantized version of [{ORG}/{NAME}](https://huggingface.co/{ORG}/{NAME})
 ```bash
-pip install hf-hub-ctranslate2>=2.0.6 
+pip install hf-hub-ctranslate2>=2.0.8 
 ```
 Converted on {str(datetime.datetime.now())[:10]} using
 ```
@@ -78,10 +80,11 @@ model = GeneratorCT2fromHfHub(
         model_name_or_path=model_name, 
         device="cuda",
         compute_type="int8_float16",
-        tokenizer=AutoTokenizer.from_pretrained("{ORG}/{NAME}")
+        # tokenizer=AutoTokenizer.from_pretrained("{ORG}/{NAME}")
 )
 outputs = model.generate(
-    text=["How do you call a fast Flan-ingo?", "User: How are you doing? Bot:"],
+    text=["def print_hello_world():", "def hello_name(name:"],
+    max_length=64
 )
 print(outputs)
 ```
@@ -105,24 +108,60 @@ This is just a quantized version. Licence conditions are intended to be idential
     
 if __name__ == "__main__":
     generators = [
-        ("togethercomputer/RedPajama-INCITE-Instruct-3B-v1"),
-        ("togethercomputer/GPT-JT-6B-v0"),
-        "togethercomputer/RedPajama-INCITE-Chat-7B-v0.1",
-        "togethercomputer/RedPajama-INCITE-Instruct-7B-v0.1",
-        "EleutherAI/pythia-160m",
-        "EleutherAI/pythia-2.8b",
-        "EleutherAI/pythia-6.9b",
-        "EleutherAI/pythia-12b",
-        "togethercomputer/Pythia-Chat-Base-7B",
-        "stabilityai/stablelm-base-alpha-7b",
-        "stabilityai/stablelm-tuned-alpha-7b",
-        "stabilityai/stablelm-base-alpha-3b",
-        "stabilityai/stablelm-tuned-alpha-3b",
-        "OpenAssistant/stablelm-7b-sft-v7-epoch-3",
-        "EleutherAI/gpt-j-6b",
-        "EleutherAI/gpt-neox-20b",
-        "OpenAssistant/pythia-12b-sft-v8-7k-steps"
+        # "togethercomputer/RedPajama-INCITE-Instruct-3B-v1",
+        # "togethercomputer/GPT-JT-6B-v0",
+        # "togethercomputer/RedPajama-INCITE-Chat-7B-v0.1",
+        # "togethercomputer/RedPajama-INCITE-Instruct-7B-v0.1",
+        # "EleutherAI/pythia-160m",
+        # "EleutherAI/pythia-2.8b",
+        # "EleutherAI/pythia-6.9b",
+        # "EleutherAI/pythia-12b",
+        # "togethercomputer/Pythia-Chat-Base-7B",
+        # "stabilityai/stablelm-base-alpha-7b",
+        # "stabilityai/stablelm-tuned-alpha-7b",
+        # "stabilityai/stablelm-base-alpha-3b",
+        # "stabilityai/stablelm-tuned-alpha-3b",
+        # "OpenAssistant/stablelm-7b-sft-v7-epoch-3",
+        # "EleutherAI/gpt-j-6b",
+        # "EleutherAI/gpt-neox-20b",
+        # "OpenAssistant/pythia-12b-sft-v8-7k-steps",
+        # "Salesforce/codegen-350M-mono",
+        # "Salesforce/codegen-350M-multi",
+        # "Salesforce/codegen-2B-mono",
+        # "Salesforce/codegen-2B-multi",
+        # "Salesforce/codegen-6B-multi",
+        # "Salesforce/codegen-6B-mono",
+        # "Salesforce/codegen-16B-mono",
+        # "Salesforce/codegen-16B-multi",
+        # "Salesforce/codegen2-1B",
+        # "Salesforce/codegen2-3_7B",
+        "Salesforce/codegen2-7B",
+        # "Salesforce/codegen2-16B",
+    ]
+    translators = [
+        "Salesforce/codet5p-770m-py",
+        "Salesforce/codet5p-770m"
     ]
     for m in generators:
         ORG , NAME = m.split("/")
+        # import huggingface_hub
+        # huggingface_hub.snapshot_download(
+        #     m
+        # )
         convert(NAME=NAME, ORG=ORG)
+    
+    from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub
+    
+    model_name = "michaelfeil/ct2fast-codegen2-16B"
+    # use either TranslatorCT2fromHfHub or GeneratorCT2fromHfHub here, depending on model.
+    model = GeneratorCT2fromHfHub(
+            # load in int8 on CUDA
+            model_name_or_path=model_name, 
+            device="cuda",
+            compute_type="int8",
+    )
+    outputs = model.generate(
+        text=["def print_hello_world():", "def hello_name(name:"],
+        max_length=64
+    )
+    print(outputs)
