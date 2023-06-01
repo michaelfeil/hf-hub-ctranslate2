@@ -28,6 +28,7 @@ class CTranslate2ModelfromHuggingfaceHub:
         compute_type: Literal["int8_float16", "int8"] = "int8_float16",
         tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs: dict = {},
+        **kwargs: Any
     ):
         # adaptions from https://github.com/guillaumekln/faster-whisper
         if os.path.isdir(model_name_or_path):
@@ -43,6 +44,7 @@ class CTranslate2ModelfromHuggingfaceHub:
             device=device,
             device_index=device_index,
             compute_type=compute_type,
+            **kwargs
         )
 
         if tokenizer is not None:
@@ -90,6 +92,7 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         compute_type: Literal["int8_float16", "int8"] = "int8_float16",
         tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs={},
+        **kwargs: Any
     ):
         """for ctranslate2.Translator models, in particular m2m-100
 
@@ -100,6 +103,7 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             compute_type (Literal[&quot;int8_float16&quot;, &quot;int8&quot;], optional): _description_. Defaults to "int8_float16".
             tokenizer (Union[AutoTokenizer, None], optional): _description_. Defaults to None.
             hub_kwargs (dict, optional): _description_. Defaults to {}.
+            **kwargs (Any, optional): Any additional arguments
         """
         self.ctranslate_class = ctranslate2.Translator
         super().__init__(
@@ -109,6 +113,7 @@ class TranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             compute_type,
             tokenizer,
             hub_kwargs,
+            **kwargs
         )
 
     def _forward(self, *args, **kwds):
@@ -174,6 +179,7 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         compute_type: Literal["int8_float16", "int8"] = "int8_float16",
         tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs={},
+        **kwargs: Any
     ):
         """for ctranslate2.Translator models
 
@@ -184,6 +190,7 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             compute_type (Literal[&quot;int8_float16&quot;, &quot;int8&quot;], optional): _description_. Defaults to "int8_float16".
             tokenizer (Union[AutoTokenizer, None], optional): _description_. Defaults to None.
             hub_kwargs (dict, optional): _description_. Defaults to {}.
+            **kwargs (Any, optional): Any additional arguments
         """
         self.ctranslate_class = ctranslate2.Translator
         super().__init__(
@@ -193,6 +200,7 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             compute_type,
             tokenizer,
             hub_kwargs,
+            **kwargs
         )
         
     def _forward(self, *args, **kwds):
@@ -271,6 +279,7 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         compute_type: Literal["int8_float16", "int8"] = "int8_float16",
         tokenizer: Union[AutoTokenizer, None] = None,
         hub_kwargs={},
+        **kwargs: Any
     ):
         """for ctranslate2.Generator models
 
@@ -281,6 +290,7 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             compute_type (Literal[&quot;int8_float16&quot;, &quot;int8&quot;], optional): _description_. Defaults to "int8_float16".
             tokenizer (Union[AutoTokenizer, None], optional): _description_. Defaults to None.
             hub_kwargs (dict, optional): _description_. Defaults to {}.
+            **kwargs (Any, optional): Any additional arguments
         """
         self.ctranslate_class = ctranslate2.Generator
         super().__init__(
@@ -290,6 +300,7 @@ class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             compute_type,
             tokenizer,
             hub_kwargs,
+            **kwargs
         )
 
     def _forward(self, *args, **kwds):
