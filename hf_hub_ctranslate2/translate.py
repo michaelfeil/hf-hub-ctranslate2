@@ -454,9 +454,9 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
         all_embeddings = [all_embeddings[idx] for idx in np.argsort(length_sorted_idx)]
 
-        if convert_to_tensor and not isinstance(all_embeddings, np.ndarray):
+        if convert_to_tensor and not isinstance(all_embeddings[0], np.ndarray):
             raise NotImplementedError
-        elif convert_to_numpy:
+        elif convert_to_numpy and not isinstance(all_embeddings[0], np.ndarray):
             all_embeddings = np.asarray([emb.numpy() for emb in all_embeddings])
 
         if input_was_string:

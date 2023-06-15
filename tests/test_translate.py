@@ -28,6 +28,10 @@ def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
     assert scores[0][0] > scores[0][1]
     assert scores[0][1] > scores[0][2]
 
+    embeddings2 = model.encode(
+        ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+    )
+    assert (embeddings2 == embeddings).all()
 
 def test_translator(model_name="michaelfeil/ct2fast-flan-alpaca-base"):
     model = TranslatorCT2fromHfHub(
