@@ -433,7 +433,7 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             input_was_string = True
 
         all_embeddings = []
-        length_sorted_idx = np.argsort([-self._text_length(sen) for sen in sentences])
+        length_sorted_idx = np.argsort([-len(sen) for sen in sentences])
         sentences_sorted = [sentences[idx] for idx in length_sorted_idx]
 
         for start_index in range(0, len(sentences), batch_size):
