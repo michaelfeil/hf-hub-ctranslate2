@@ -49,13 +49,14 @@ model = EncoderCT2fromHfHub(
         compute_type="float16",
         # tokenizer=AutoTokenizer.from_pretrained("{ORG}/{NAME}")
 )
-embeddings = model.generate(
-    text=["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+embeddings = model.encode(
+    ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+    batch_size=32,
+    convert_to_numpy=True,
+    normalize_embeddings=True,
 )
 print(embeddings.shape, embeddings)
-# getting correlation
-embeddings_norm = embeddings / (embeddings**2).sum(axis=1, keepdims=True)**0.5
-scores = (embeddings_norm @ embeddings_norm.T) * 100
+scores = (embeddings @ embeddings.T) * 100
 """
 
 
@@ -141,8 +142,6 @@ quantized version of [{ORG}/{NAME}](https://huggingface.co/{ORG}/{NAME})
 ```bash
 pip install hf-hub-ctranslate2>=2.10.0 ctranslate2>=3.16.0
 ```
-
-
 
 ```python
 # from transformers import AutoTokenizer
