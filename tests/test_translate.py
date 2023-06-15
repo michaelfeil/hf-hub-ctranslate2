@@ -20,11 +20,12 @@ def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
     assert len(embeddings) == 3
     assert len(embeddings[0]) == len(embeddings[1])
     import numpy as np
+
     assert isinstance(embeddings, np.ndarray)
-    embeddings_norm = embeddings / (embeddings**2).sum(axis=1, keepdims=True)**0.5
+    embeddings_norm = embeddings / (embeddings**2).sum(axis=1, keepdims=True) ** 0.5
     scores = (embeddings_norm @ embeddings_norm.T) * 100
-    assert 100.05> scores[0][0] >= 99.95
-    assert scores[0][0] > scores[0][1] 
+    assert 100.05 > scores[0][0] >= 99.95
+    assert scores[0][0] > scores[0][1]
     assert scores[0][1] > scores[0][2]
 
 

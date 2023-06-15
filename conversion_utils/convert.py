@@ -94,7 +94,11 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
             "--copy_files",
         ]
         + filtered_f
-        + ["--quantization", "float16" if description=="encoder" else "int8_float16", "--trust_remote_code"]
+        + [
+            "--quantization",
+            "float16" if description == "encoder" else "int8_float16",
+            "--trust_remote_code",
+        ]
     )
     call(conv_arg)
     if not "vocabulary.txt" in os.listdir(tmp_dir) and "vocab.txt" in os.listdir(
@@ -228,6 +232,7 @@ if __name__ == "__main__":
         "intfloat/e5-large-v2",
         "intfloat/e5-large",
         "sentence-transformers/all-MiniLM-L6-v2",
+        "setu4993/LaBSE",
     ]
     for m in encoders:
         ORG, NAME = m.split("/")

@@ -361,7 +361,9 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
                 raise ValueError(
                     "decoding storageview on CUDA of encoder requires torch"
                 )
-            self.tensor_decode_method = functools.partial(torch.as_tensor, device=device)
+            self.tensor_decode_method = functools.partial(
+                torch.as_tensor, device=device
+            )
         else:
             try:
                 import numpy as np
@@ -373,7 +375,7 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
     def _forward(self, *args, **kwds):
         return self.model.forward_batch(*args, **kwds)
-    
+
     def tokenize_encode(self, text, *args, **kwargs):
         return self.tokenizer(text).input_ids
 
@@ -395,12 +397,17 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             *forward_args,
             **forward_kwds,
         )
-    
-    def encode(self, sentences: Union[str, List[str]],
-               batch_size: int = 32,
-               convert_to_numpy: bool = True,
-               convert_to_tensor: bool = False,
-               normalize_embeddings: bool = False, *args, **kwargs):
+
+    def encode(
+        self,
+        sentences: Union[str, List[str]],
+        batch_size: int = 32,
+        convert_to_numpy: bool = True,
+        convert_to_tensor: bool = False,
+        normalize_embeddings: bool = False,
+        *args,
+        **kwargs,
+    ):
         """
         Computes sentence embeddings
 
@@ -414,26 +421,30 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
            By default, a list of tensors is returned. If convert_to_tensor, a stacked tensor is returned. If convert_to_numpy, a numpy matrix is returned.
         """
         import numpy as np
+
         if convert_to_tensor:
             convert_to_numpy = False
 
         input_was_string = False
-        if isinstance(sentences, str) or not hasattr(sentences, '__len__'): #Cast an individual sentence to a list with length 1
+        if isinstance(sentences, str) or not hasattr(
+            sentences, "__len__"
+        ):  # Cast an individual sentence to a list with length 1
             sentences = [sentences]
             input_was_string = True
-
 
         all_embeddings = []
         length_sorted_idx = np.argsort([-self._text_length(sen) for sen in sentences])
         sentences_sorted = [sentences[idx] for idx in length_sorted_idx]
 
         for start_index in range(0, len(sentences), batch_size):
-            sentences_batch = sentences_sorted[start_index:start_index+batch_size]
+            sentences_batch = sentences_sorted[start_index : start_index + batch_size]
 
             embeddings = self.generate(sentences_batch)
-            
+
             if normalize_embeddings:
-                embeddings = embeddings / (embeddings**2).sum(axis=1, keepdims=True)**0.5
+                embeddings = (
+                    embeddings / (embeddings**2).sum(axis=1, keepdims=True) ** 0.5
+                )
 
             # fixes for #522 and #487 to avoid oom problems on gpu with large datasets
             if convert_to_numpy and not isinstance(embeddings, np.ndarray):
