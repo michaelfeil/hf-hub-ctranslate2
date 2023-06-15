@@ -35,7 +35,7 @@ setup(
         "Operating System :: POSIX :: Linux",
     ],
     install_requires=[
-        "ctranslate2>=3.13.0",
+        "ctranslate2>=3.16.0",
         "transformers>=4.28.0",
         "huggingface-hub",
         "typing_extensions",

@@ -45,6 +45,7 @@ def _download_model(
         "vocabulary.txt",
         "tokenizer_config.json",
         "*ocabulary.txt",
+        "vocab.txt",
     ]
 
     return huggingface_hub.snapshot_download(
