@@ -18,6 +18,7 @@ hf\_hub\_ctranslate2.translate
    .. autosummary::
    
       CTranslate2ModelfromHuggingfaceHub
+      EncoderCT2fromHfHub
       GeneratorCT2fromHfHub
       MultiLingualTranslatorCT2fromHfHub
       TranslatorCT2fromHfHub
