@@ -213,16 +213,16 @@ if __name__ == "__main__":
         # "mosaicml/mpt-7b",
         # "mosaicml/mpt-7b-instruct",
         # "mosaicml/mpt-7b-chat"
-        "VMware/open-llama-7b-open-instruct",
+        # "VMware/open-llama-7b-open-instruct",
         # "tiiuae/falcon-7b-instruct",
         # 'tiiuae/falcon-7b',
-        "tiiuae/falcon-40b-instruct",
-        "tiiuae/falcon-40b",
+        # "tiiuae/falcon-40b",
+        # "tiiuae/falcon-40b-instruct",
         "OpenAssistant/falcon-7b-sft-top1-696",
         "OpenAssistant/falcon-7b-sft-mix-2000",
         "OpenAssistant/falcon-40b-sft-mix-1226",
         # "HuggingFaceH4/starchat-beta",
-        "WizardLM/WizardCoder-15B-V1.0",
+        # "WizardLM/WizardCoder-15B-V1.0",
     ]
     translators = [
         # 'Salesforce/codet5p-770m-py', 'Salesforce/codet5p-770m'
@@ -259,7 +259,7 @@ if __name__ == "__main__":
         model = GeneratorCT2fromHfHub(
             # load in int8 on CUDA
             model_name_or_path=model_name,
-            device="cuda",
+            device="cpu",
             compute_type="int8",
             tokenizer=AutoTokenizer.from_pretrained(m),
         )
