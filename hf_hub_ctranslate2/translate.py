@@ -40,7 +40,7 @@ class CTranslate2ModelfromHuggingfaceHub:
                 model_path = _utils._download_model(
                     model_name_or_path, hub_kwargs=hub_kwargs
                 )
-            except:
+            except Exception:
                 hub_kwargs["local_files_only"] = True
                 model_path = _utils._download_model(
                     model_name_or_path, hub_kwargs=hub_kwargs
@@ -237,7 +237,7 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
     def _forward(self, *args, **kwds):
         target_prefix = [
-            [self.tokenizer.lang_code_to_token[l]] for l in kwds.pop("tgt_lang")
+            [self.tokenizer.lang_code_to_token[lng]] for lng in kwds.pop("tgt_lang")
         ]
         # target_prefix=[['__de__'], ['__fr__']]
         return self.model.translate_batch(*args, **kwds, target_prefix=target_prefix)
@@ -413,9 +413,12 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
         :param sentences: the sentences to embed
         :param batch_size: the batch size used for the computation
-        :param convert_to_numpy: If true, the output is a list of numpy vectors. Else, it is a list of pytorch tensors.
-        :param convert_to_tensor: If true, you get one large tensor as return. Overwrites any setting from convert_to_numpy
-        :param normalize_embeddings: If set to true, returned vectors will have length 1. In that case, the faster dot-product (util.dot_score) instead of cosine similarity can be used.
+        :param convert_to_numpy: If true, the output is a list of numpy vectors. 
+            Else, it is a list of pytorch tensors.
+        :param convert_to_tensor: If true, you get one large tensor as return. \   
+            Overwrites any setting from convert_to_numpy
+        :param normalize_embeddings: If set to true, returned vectors will have length 1. 
+            In that case, the faster dot-product (util.dot_score) instead of cosine similarity can be used.
 
         :return:
            By default, a list of tensors is returned. If convert_to_tensor, a stacked tensor is returned. If convert_to_numpy, a numpy matrix is returned.
