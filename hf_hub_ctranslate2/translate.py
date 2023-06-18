@@ -373,11 +373,13 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
                 )
             self.tensor_decode_method = np.asarray
 
-    def _forward(self, *args, **kwds):
-        return self.model.forward_batch(*args, **kwds)
+    def _forward(self, features, *args, **kwds):
+        input_ids = features["input_ids"]
+        length = features["attention_mask"].sum(1)
+        return self.model.forward_batch(input_ids, length, **kwds)
 
     def tokenize_encode(self, text, *args, **kwargs):
-        return self.tokenizer(text).input_ids
+        return self.tokenizer(text)
 
     def tokenize_decode(self, tokens_out, *args, **kwargs):
         return dict(
