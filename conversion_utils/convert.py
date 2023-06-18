@@ -120,8 +120,8 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
             **transformers_config,
             **ct2_config
         }
-        with open(os.path.join(path,"config.json"),"w") as f:
-            json.dump(new_config, f)
+        with open(os.path.join(tmp_dir,"config.json"),"w") as f:
+            json.dump(new_config, f, indent=4)
 
     with open(os.path.join(tmp_dir, "README.md"), "r") as f:
         content = f.read()

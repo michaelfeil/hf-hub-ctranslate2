@@ -319,6 +319,89 @@ class MultiLingualTranslatorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         )
 
 
+class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
+    def __init__(
+        self,
+        model_name_or_path: str,
+        device: Literal["cpu", "cuda"] = "cuda",
+        device_index=0,
+        compute_type: Literal["int8_float16", "int8"] = "int8_float16",
+        tokenizer: Union[AutoTokenizer, None] = None,
+        hub_kwargs={},
+        **kwargs: Any,
+    ):
+        """for ctranslate2.Translator models, in particular m2m-100
+
+        Args:
+            model_name_or_path (str): _description_
+            device (Literal[cpu, cuda], optional): _description_. Defaults to "cuda".
+            device_index (int, optional): _description_. Defaults to 0.
+            compute_type (Literal[int8_float16, int8], optional): _description_. Defaults to "int8_float16".
+            tokenizer (Union[AutoTokenizer, None], optional): _description_. Defaults to None.
+            hub_kwargs (dict, optional): _description_. Defaults to {}.
+            **kwargs (Any, optional): Any additional arguments
+        """
+        self.ctranslate_class = ctranslate2.Encoder
+        super().__init__(
+            model_name_or_path,
+            device,
+            device_index,
+            compute_type,
+            tokenizer,
+            hub_kwargs,
+            **kwargs,
+        )
+        self.device = device
+        if device == "cuda":
+            import functools
+
+            try:
+                import torch
+            except ImportError:
+                raise ValueError(
+                    "decoding storageview on CUDA of encoder requires torch"
+                )
+            self.tensor_decode_method = functools.partial(
+                torch.as_tensor, device=device
+            )
+        else:
+            try:
+                import numpy as np
+            except ImportError:
+                raise ValueError(
+                    "decoding storageview on CPU of encoder requires numpy"
+                )
+            self.tensor_decode_method = np.asarray
+
+    def _forward(self, *args, **kwds):
+        return self.model.forward_batch(*args, **kwds)
+
+    def tokenize_encode(self, text, *args, **kwargs):
+        return self.tokenizer(text).input_ids
+
+    def tokenize_decode(self, tokens_out, *args, **kwargs):
+        return dict(
+            pooler_output = self.tensor_decode_method(tokens_out.pooler_output),
+            last_hidden_state = self.tensor_decode_method(tokens_out.last_hidden_state)
+        )
+
+    def generate(
+        self,
+        text: Union[str, List[str]],
+        encode_tok_kwargs={},
+        decode_tok_kwargs={},
+        *forward_args,
+        **forward_kwds: Any,
+    ):
+        return super().generate(
+            text,
+            encode_kwargs=encode_tok_kwargs,
+            decode_kwargs=decode_tok_kwargs,
+            *forward_args,
+            **forward_kwds,
+        )
+
+
 class GeneratorCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
     def __init__(
         self,
