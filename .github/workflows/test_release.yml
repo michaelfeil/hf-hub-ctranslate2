@@ -34,7 +34,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -r requirements_dev.txt
-        pip install -e .
+        pip install -e .[sentence_transformers]
     
     - name: Lint with flake8
       run: |
