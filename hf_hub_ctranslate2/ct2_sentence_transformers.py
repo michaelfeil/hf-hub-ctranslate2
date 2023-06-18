@@ -1,7 +1,7 @@
 import numpy as np
 import logging
 import os
-from hf_hub_ctranslate2.util import utils as _utils
+
 from typing import Union
 try:
     import torch
@@ -39,40 +39,30 @@ class CT2SentenceTransformer(SentenceTransformer):
     :param force: force new conversion with CTranslate2, even if it already exists.
     :param vmap: Optional path to a vocabulary mapping file that will be included
         in the converted model directory.
-    :param repo_contains_ct2: bool. if False, download and convert a Torch model from the hub 
-        on the fly. if true, repo contains ct2 already.
-    :param hub_kwargs=hub_kwargs: if download CTranslate2 model directly from huggingface_hub
     """
 
     def __init__(
         self,
-        model_name_or_path: str,
         *args,
         compute_type="default",
         force=False,
         vmap: Union[str,None] = None,
-        repo_contains_ct2: bool = False,
-        hub_kwargs: dict = {},
         **kwargs
     ):
         if not IS_SentenceTransformer_IMPORTED:
             raise ValueError("Installation requires sentence_transformers. Please `pip install hf_hub_ctranslate2[sentence_transformers]`")
         if not IS_torch_IMPORTED:
             raise ValueError("Installation requires torch. Please `pip install hf_hub_ctranslate2[sentence_transformers]`")
-        kwargs["model_name_or_path"] = model_name_or_path
         super().__init__(*args, **kwargs)
-        hub_kwargs["repo_id"] = model_name_or_path
         self[0] = CT2Transformer(
             self[0],
             compute_type=compute_type,
             force=force,
             vmap=vmap,
-            repo_contains_ct2=repo_contains_ct2,
-            hub_kwargs=hub_kwargs,
         )
 
 
-class CT2Transformer(Module):
+class CT2Transformer(torch.nn.Module):
     """Wrapper around a sentence_transformers.models.Transformer which routes the forward
     call to a CTranslate2 encoder model.
 
@@ -89,9 +79,7 @@ class CT2Transformer(Module):
         transformer,
         compute_type="default",
         force=False,
-        vmap:Union[str,None] = None,
-        repo_contains_ct2: bool = False,
-        hub_kwargs: dict = {}
+        vmap: Union[str,None] = None,
     ):
         if not IS_torch_IMPORTED:
             raise ValueError("Installation requires torch. Please `pip install torch>=2.0.0`")
@@ -108,33 +96,21 @@ class CT2Transformer(Module):
         self.tokenize = transformer.tokenize
         self.compute_type = compute_type
         self.encoder = None
-        
-        if not repo_contains_ct2:
-            # Convert to the CTranslate2 model format, if not already done.
-            model_dir = transformer.auto_model.config.name_or_path
-            self.ct2_model_dir = os.path.join(
-                model_dir,
-                "ctranslate2_" + ctranslate2.__version__,
-            )
 
-            if not os.path.exists(os.path.join(self.ct2_model_dir, "model.bin")) or force:
-                if os.path.exists(self.ct2_model_dir) and not os.listdir(
-                    self.ct2_model_dir
-                ):
-                    force = True
-                converter = ctranslate2.converters.TransformersConverter(model_dir)
-                converter.convert(self.ct2_model_dir, force=force, vmap=vmap)
-        else:
-            model_name = hub_kwargs.pop("repo_id")
-            try:
-                self.ct2_model_dir = _utils._download_model(
-                    model_name, hub_kwargs=hub_kwargs
-                )
-            except Exception:
-                hub_kwargs["local_files_only"] = True
-                self.ct2_model_dir = _utils._download_model(
-                    model_name, hub_kwargs=hub_kwargs
-                )
+        # Convert to the CTranslate2 model format, if not already done.
+        model_dir = transformer.auto_model.config.name_or_path
+        self.ct2_model_dir = os.path.join(
+            model_dir,
+            "ctranslate2_" + ctranslate2.__version__,
+        )
+
+        if not os.path.exists(os.path.join(self.ct2_model_dir, "model.bin")) or force:
+            if os.path.exists(self.ct2_model_dir) and not os.listdir(
+                self.ct2_model_dir
+            ):
+                force = True
+            converter = ctranslate2.converters.TransformersConverter(model_dir)
+            converter.convert(self.ct2_model_dir, force=force, vmap=vmap)
         self._ctranslate2_encoder_cls = ctranslate2.Encoder
         self._storage_view = ctranslate2.StorageView
 
