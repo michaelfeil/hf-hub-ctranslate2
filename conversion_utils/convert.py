@@ -176,7 +176,7 @@ pip install hf-hub-ctranslate2>=2.11.0 ctranslate2>=3.16.0
 ```python
 # from transformers import AutoTokenizer
 model_name = "{repo_id}"
-{(f'model_name_orig='+ORG+"/"+NAME) if description == "encoder" else ""}
+{('model_name_orig="'+ORG+"/"+NAME + '"') if description == "encoder" else ""}
 {model_description}
 ```
 
