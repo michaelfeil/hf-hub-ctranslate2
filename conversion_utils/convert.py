@@ -7,7 +7,7 @@ def call(*args, **kwargs):
     out = subprocess.call(*args, **kwargs)
     if out != 0:
         raise ValueError(f"Output: {out}")
-
+import ctranslate2
 
 model_description_generator = """
 from hf_hub_ctranslate2 import GeneratorCT2fromHfHub
@@ -41,13 +41,9 @@ outputs = model.generate(
 print(outputs)"""
 
 model_description_encoder = """
-from hf_hub_ctranslate2 import EncoderCT2fromHfHub
-model = EncoderCT2fromHfHub(
-        # load in int8 on CUDA
-        model_name_or_path=model_name,
-        device="cuda",
-        compute_type="float16",
-        # tokenizer=AutoTokenizer.from_pretrained("{ORG}/{NAME}")
+from hf_hub_ctranslate2 import CT2SentenceTransformer
+model = CT2SentenceTransformer(
+    model_name, compute_type="int8_float16", device="cuda"
 )
 embeddings = model.encode(
     ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
@@ -95,9 +91,10 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
             "--copy_files",
         ]
         + filtered_f
+        + ([
+            "--quantization", "int8_float16",
+        ] if description != "encoder" else [])
         + [
-            "--quantization",
-            "float16" if description == "encoder" else "int8_float16",
             "--trust_remote_code",
         ]
     )
@@ -140,7 +137,7 @@ Speedup inference while reducing memory by 2x-4x using int8 inference in C++ on 
 
 quantized version of [{ORG}/{NAME}](https://huggingface.co/{ORG}/{NAME})
 ```bash
-pip install hf-hub-ctranslate2>=2.10.0 ctranslate2>=3.16.0
+pip install hf-hub-ctranslate2>=3.0.0 ctranslate2>=3.16.0
 ```
 
 ```python
@@ -150,7 +147,7 @@ model_name = "{repo_id}"
 ```
 
 Checkpoint compatible to [ctranslate2>=3.16.0](https://github.com/OpenNMT/CTranslate2)
-and [hf-hub-ctranslate2>=2.10.0](https://github.com/michaelfeil/hf-hub-ctranslate2)
+and [hf-hub-ctranslate2>=3.0.0](https://github.com/michaelfeil/hf-hub-ctranslate2)
 - `compute_type=int8_float16` for `device="cuda"`
 - `compute_type=int8`  for `device="cpu"`
 
@@ -230,6 +227,7 @@ if __name__ == "__main__":
     encoders = [
         "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
         "intfloat/e5-small-v2",
+        "intfloat/e5-small",
         "intfloat/e5-large-v2",
         "intfloat/e5-large",
         "sentence-transformers/all-MiniLM-L6-v2",

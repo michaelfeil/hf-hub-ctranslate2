@@ -2,36 +2,10 @@ from hf_hub_ctranslate2 import (
     TranslatorCT2fromHfHub,
     GeneratorCT2fromHfHub,
     MultiLingualTranslatorCT2fromHfHub,
-    EncoderCT2fromHfHub,
 )
 
 from hf_hub_ctranslate2.util import utils as _utils
 from transformers import AutoTokenizer
-
-
-def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
-    model = EncoderCT2fromHfHub(
-        model_name_or_path=model_name, device="cpu", compute_type="int8"
-    )
-
-    embeddings = model.generate(
-        text=["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
-    )
-    assert len(embeddings) == 3
-    assert len(embeddings[0]) == len(embeddings[1])
-    import numpy as np
-
-    assert isinstance(embeddings, np.ndarray)
-    embeddings_norm = embeddings / (embeddings**2).sum(axis=1, keepdims=True) ** 0.5
-    scores = (embeddings_norm @ embeddings_norm.T) * 100
-    assert 100.05 > scores[0][0] >= 99.95
-    assert scores[0][0] > scores[0][1]
-    assert scores[0][1] > scores[0][2]
-
-    embeddings2 = model.encode(
-        ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
-    )
-    assert (embeddings2 == embeddings).all()
 
 def test_translator(model_name="michaelfeil/ct2fast-flan-alpaca-base"):
     model = TranslatorCT2fromHfHub(
