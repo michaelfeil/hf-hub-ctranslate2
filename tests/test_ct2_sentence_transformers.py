@@ -182,6 +182,7 @@ def test_production_ct2():
         batch_size=32,
         convert_to_numpy=True,
         normalize_embeddings=True,
+        convert_from_huggingface_transformers=False
     )
     
     scores = (embeddings @ embeddings.T) * 100

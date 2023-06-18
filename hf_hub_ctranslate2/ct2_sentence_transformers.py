@@ -51,7 +51,7 @@ class CT2SentenceTransformer(SentenceTransformer):
         compute_type="default",
         force=False,
         vmap: Union[str,None] = None,
-        convert_from_huggingface_transformers: bool = False,
+        convert_from_huggingface_transformers: bool = True,
         hub_kwargs: dict = {},
         **kwargs
     ):

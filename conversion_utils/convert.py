@@ -1,5 +1,5 @@
 import os
-
+import json
 
 def call(*args, **kwargs):
     import subprocess
@@ -7,7 +7,6 @@ def call(*args, **kwargs):
     out = subprocess.call(*args, **kwargs)
     if out != 0:
         raise ValueError(f"Output: {out}")
-import ctranslate2
 
 model_description_generator = """
 from hf_hub_ctranslate2 import GeneratorCT2fromHfHub
@@ -43,7 +42,7 @@ print(outputs)"""
 model_description_encoder = """
 from hf_hub_ctranslate2 import CT2SentenceTransformer
 model = CT2SentenceTransformer(
-    model_name, compute_type="int8_float16", device="cuda"
+    model_name, compute_type="int8_float16", device="cuda", convert_from_huggingface_transformers=False
 )
 embeddings = model.encode(
     ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
@@ -79,6 +78,9 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
         for f in files
         if not ("model" in f or "config.json" == f or f.endswith(".py"))
     ]
+    if "config.json" in files:
+        with open(os.path.join(path,"config.json"),"r") as f:
+            transformers_config = json.load(f)
 
     conv_arg = (
         [
@@ -108,6 +110,17 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
             os.path.join(tmp_dir, "vocab.txt"),
             os.path.join(tmp_dir, "vocabulary.txt"),
         )
+    
+    if "config.json" in os.listdir(tmp_dir):
+        with open(os.path.join(tmp_dir,"config.json"),"r") as f:
+            ct2_config = json.load(f)
+        
+        new_config = {
+            **transformers_config,
+            **ct2_config
+        }
+        with open(os.path.join(path,"config.json"),"w") as f:
+            json.dump(new_config, f)
 
     with open(os.path.join(tmp_dir, "README.md"), "r") as f:
         content = f.read()
@@ -225,11 +238,11 @@ if __name__ == "__main__":
         # 'Salesforce/codet5p-770m-py', 'Salesforce/codet5p-770m'
     ]
     encoders = [
-        "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
         "intfloat/e5-small-v2",
         "intfloat/e5-small",
         "intfloat/e5-large-v2",
         "intfloat/e5-large",
+        "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
         "sentence-transformers/all-MiniLM-L6-v2",
         "setu4993/LaBSE",
     ]
