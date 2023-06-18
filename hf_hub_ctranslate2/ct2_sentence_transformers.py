@@ -56,9 +56,9 @@ class CT2SentenceTransformer(SentenceTransformer):
         **kwargs
     ):
         if not IS_SentenceTransformer_IMPORTED:
-            raise ValueError("Installation requires sentence_transformers. Please `pip install sentence_transformers~=2.2.2`")
+            raise ValueError("Installation requires sentence_transformers. Please `pip install hf_hub_ctranslate2[sentence_transformers]`")
         if not IS_torch_IMPORTED:
-            raise ValueError("Installation requires torch. Please `pip install torch>=2.0.0`")
+            raise ValueError("Installation requires torch. Please `pip install hf_hub_ctranslate2[sentence_transformers]`")
         kwargs["model_name_or_path"] = model_name_or_path
         super().__init__(*args, **kwargs)
         hub_kwargs["repo_id"] = model_name_or_path

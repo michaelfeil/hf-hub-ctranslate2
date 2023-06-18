@@ -74,7 +74,3 @@ def test_generator_single(model_name="michaelfeil/ct2fast-pythia-160m"):
     outputs = model.generate("How do you call a fast Flan-ingo?")
     assert isinstance(outputs, str)
     assert "flan" in outputs.lower()
-
-
-if __name__ == "__main__":
-    test_encoder()
