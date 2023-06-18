@@ -168,7 +168,7 @@ if torch.cuda.is_available():
         def setUp(self):
             super().setUp(compute_type="float32", device="cuda")
 
-def test_production_ct2():
+def test_readme_docstring_ct2():
     # from transformers import AutoTokenizer
     model_name = "intfloat/e5-small"
 
