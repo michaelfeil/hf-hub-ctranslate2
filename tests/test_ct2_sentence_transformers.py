@@ -174,7 +174,7 @@ def test_production_ct2():
 
     from hf_hub_ctranslate2 import CT2SentenceTransformer
     model = CT2SentenceTransformer(
-        model_name, compute_type="int8_float16", device="cuda",
+        model_name, compute_type="int8_float16", device="cpu",
 
     )
     embeddings = model.encode(
