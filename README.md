@@ -17,7 +17,7 @@ Connecting Transformers on HuggingfaceHub with Ctranslate2 - a small utility for
 
 --------
 ## Usage:
-#### Decoder-only Transformer:
+## Decoder-only Transformer:
 ```python
 # download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)
 from hf_hub_ctranslate2 import TranslatorCT2fromHfHub, GeneratorCT2fromHfHub
@@ -32,8 +32,9 @@ outputs = model.generate(
     # add arguments specifically to ctranslate2.Generator here
 )
 ```
-#### Encoder-Decoder:
+## Encoder-Decoder:
 ```python
+from hf_hub_ctranslate2 import TranslatorCT2fromHfHub
 # download ctranslate.Translator repos from Huggingface Hub (T5, ..)
 model_name_2 = "michaelfeil/ct2fast-flan-alpaca-base"
 model = TranslatorCT2fromHfHub(
@@ -50,8 +51,9 @@ outputs = model.generate(
 )
 print(outputs)
 ```
-#### Encoder-Decoder for multilingual translations (m2m-100):
+## Encoder-Decoder for multilingual translations (m2m-100):
 ```python
+from hf_hub_ctranslate2 import MultiLingualTranslatorCT2fromHfHub
 model = MultiLingualTranslatorCT2fromHfHub(
     model_name_or_path="michaelfeil/ct2fast-m2m100_418M", device="cpu", compute_type="int8",
     tokenizer=AutoTokenizer.from_pretrained(f"facebook/m2m100_418M")
@@ -61,6 +63,38 @@ outputs = model.generate(
     ["How do you call a fast Flamingo?", "Wie geht es dir?"],
     src_lang=["en", "de"],
     tgt_lang=["de", "fr"]
+)
+```
+## Encoder-only Sentence Transformers
+```python
+from hf_hub_ctranslate2 import CT2SentenceTransformer
+model_name_pytorch = "intfloat/e5-small"
+model = CT2SentenceTransformer(
+    model_name_pytorch, compute_type="int8", device="cuda", 
+)
+embeddings = model.encode(
+    ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+    batch_size=32,
+    convert_to_numpy=True,
+    normalize_embeddings=True,
+)
+print(embeddings.shape, embeddings)
+scores = (embeddings @ embeddings.T) * 100
+```
+
+## Encoder-only
+```python
+from hf_hub_ctranslate2 import EncoderCT2fromHfHub
+model_name = "michaelfeil/ct2fast-e5-small"
+model = EncoderCT2fromHfHub(
+        # load in int8 on CUDA
+        model_name_or_path=model_name,
+        device="cuda",
+        compute_type="int8_float16",
+)
+outputs = model.generate(
+    text=["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+    max_length=64,
 )
 ```
 

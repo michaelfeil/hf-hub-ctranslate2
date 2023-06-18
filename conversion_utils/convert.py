@@ -41,7 +41,7 @@ print(outputs)"""
 
 model_description_encoder = """
 from hf_hub_ctranslate2 import EncoderCT2fromHfHub
-model = TranslatorCT2fromHfHub(
+model = EncoderCT2fromHfHub(
         # load in int8 on CUDA
         model_name_or_path=model_name,
         device="cuda",
