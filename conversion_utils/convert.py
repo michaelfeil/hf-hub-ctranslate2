@@ -170,7 +170,7 @@ Speedup inference while reducing memory by 2x-4x using int8 inference in C++ on 
 
 quantized version of [{ORG}/{NAME}](https://huggingface.co/{ORG}/{NAME})
 ```bash
-pip install hf-hub-ctranslate2>=3.0.0 ctranslate2>=3.16.0
+pip install hf-hub-ctranslate2>=2.11.0 ctranslate2>=3.16.0
 ```
 
 ```python
@@ -181,7 +181,7 @@ model_name = "{repo_id}"
 ```
 
 Checkpoint compatible to [ctranslate2>=3.16.0](https://github.com/OpenNMT/CTranslate2)
-and [hf-hub-ctranslate2>=3.0.0](https://github.com/michaelfeil/hf-hub-ctranslate2)
+and [hf-hub-ctranslate2>=2.11.0](https://github.com/michaelfeil/hf-hub-ctranslate2)
 - `compute_type=int8_float16` for `device="cuda"`
 - `compute_type=int8`  for `device="cpu"`
 
