@@ -88,7 +88,7 @@ jobs:
       run: |
         cd branch-dir
         pip install -r requirements_dev.txt
-        pip install -e .
+        pip install -e .[sentence_transformers]
     - name: create shinx docs from current branch
       # create shpinx api autodocs of opensentiment and move them to docs
       # makefile: make html build the the docs/_build/html/
