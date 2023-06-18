@@ -19,10 +19,9 @@ class CT2ComputeEmbeddingsTest(unittest.TestCase):
         compute_type="default",
         device="cpu",
         model_name="sentence-transformers/all-MiniLM-L6-v2",
-        repo_contains_ct2=False
     ):
         self.model = CT2SentenceTransformer(
-            model_name, compute_type=compute_type, device=device, repo_contains_ct2=repo_contains_ct2
+            model_name, compute_type=compute_type, device=device
         )
         self.default_model = SentenceTransformer(model_name, device=device)
         self.abs_tol = 5e-3
@@ -171,12 +170,12 @@ if torch.cuda.is_available():
 
 def test_production_ct2():
     # from transformers import AutoTokenizer
-    model_name = "michaelfeil/ct2fast-e5-small"
+    model_name = "intfloat/e5-small-v2"
 
     from hf_hub_ctranslate2 import CT2SentenceTransformer
     model = CT2SentenceTransformer(
         model_name, compute_type="int8_float16", device="cuda",
-        repo_contains_ct2=True
+
     )
     embeddings = model.encode(
         ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
