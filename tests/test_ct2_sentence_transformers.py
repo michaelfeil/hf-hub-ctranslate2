@@ -169,5 +169,23 @@ if torch.cuda.is_available():
         def setUp(self):
             super().setUp(compute_type="float32", device="cuda")
 
+def test_production_ct2():
+    # from transformers import AutoTokenizer
+    model_name = "michaelfeil/ct2fast-e5-small"
+
+    from hf_hub_ctranslate2 import CT2SentenceTransformer
+    model = CT2SentenceTransformer(
+        model_name, compute_type="int8_float16", device="cuda"
+    )
+    embeddings = model.encode(
+        ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+        batch_size=32,
+        convert_to_numpy=True,
+        normalize_embeddings=True,
+    )
+    
+    scores = (embeddings @ embeddings.T) * 100
+    assert scores 
+
 if __name__ == "__main__":
     unittest.main()

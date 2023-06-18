@@ -2,7 +2,7 @@ import numpy as np
 import logging
 import os
 from hf_hub_ctranslate2.util import utils as _utils
-
+from typing import Union
 try:
     import torch
     Module=torch.nn.Module
@@ -50,7 +50,7 @@ class CT2SentenceTransformer(SentenceTransformer):
         *args,
         compute_type="default",
         force=False,
-        vmap: str | None = None,
+        vmap: Union[str,None] = None,
         convert_from_huggingface_transformers: bool = False,
         hub_kwargs: dict = {},
         **kwargs
@@ -89,7 +89,7 @@ class CT2Transformer(Module):
         transformer,
         compute_type="default",
         force=False,
-        vmap: str | None = None,
+        vmap:Union[str,None] = None,
         convert_from_huggingface_transformers: bool = False,
         hub_kwargs: dict = {}
     ):
