@@ -19,10 +19,10 @@ class CT2ComputeEmbeddingsTest(unittest.TestCase):
         compute_type="default",
         device="cpu",
         model_name="sentence-transformers/all-MiniLM-L6-v2",
-        convert_from_huggingface_transformers=True
+        repo_contains_ct2=False
     ):
         self.model = CT2SentenceTransformer(
-            model_name, compute_type=compute_type, device=device, convert_from_huggingface_transformers=convert_from_huggingface_transformers
+            model_name, compute_type=compute_type, device=device, repo_contains_ct2=repo_contains_ct2
         )
         self.default_model = SentenceTransformer(model_name, device=device)
         self.abs_tol = 5e-3
@@ -175,14 +175,14 @@ def test_production_ct2():
 
     from hf_hub_ctranslate2 import CT2SentenceTransformer
     model = CT2SentenceTransformer(
-        model_name, compute_type="int8_float16", device="cuda"
+        model_name, compute_type="int8_float16", device="cuda",
+        repo_contains_ct2=True
     )
     embeddings = model.encode(
         ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
         batch_size=32,
         convert_to_numpy=True,
         normalize_embeddings=True,
-        convert_from_huggingface_transformers=False
     )
     
     scores = (embeddings @ embeddings.T) * 100

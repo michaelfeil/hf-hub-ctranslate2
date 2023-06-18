@@ -39,8 +39,8 @@ class CT2SentenceTransformer(SentenceTransformer):
     :param force: force new conversion with CTranslate2, even if it already exists.
     :param vmap: Optional path to a vocabulary mapping file that will be included
         in the converted model directory.
-    :param convert_from_huggingface_transformers: bool. if True, download and convert a Torch model from the hub 
-        and convert on the fly.
+    :param repo_contains_ct2: bool. if False, download and convert a Torch model from the hub 
+        on the fly. if true, repo contains ct2 already.
     :param hub_kwargs=hub_kwargs: if download CTranslate2 model directly from huggingface_hub
     """
 
@@ -51,7 +51,7 @@ class CT2SentenceTransformer(SentenceTransformer):
         compute_type="default",
         force=False,
         vmap: Union[str,None] = None,
-        convert_from_huggingface_transformers: bool = True,
+        repo_contains_ct2: bool = False,
         hub_kwargs: dict = {},
         **kwargs
     ):
@@ -67,7 +67,7 @@ class CT2SentenceTransformer(SentenceTransformer):
             compute_type=compute_type,
             force=force,
             vmap=vmap,
-            convert_from_huggingface_transformers=convert_from_huggingface_transformers,
+            repo_contains_ct2=repo_contains_ct2,
             hub_kwargs=hub_kwargs,
         )
 
@@ -90,7 +90,7 @@ class CT2Transformer(Module):
         compute_type="default",
         force=False,
         vmap:Union[str,None] = None,
-        convert_from_huggingface_transformers: bool = False,
+        repo_contains_ct2: bool = False,
         hub_kwargs: dict = {}
     ):
         if not IS_torch_IMPORTED:
@@ -109,7 +109,7 @@ class CT2Transformer(Module):
         self.compute_type = compute_type
         self.encoder = None
         
-        if convert_from_huggingface_transformers:
+        if not repo_contains_ct2:
             # Convert to the CTranslate2 model format, if not already done.
             model_dir = transformer.auto_model.config.name_or_path
             self.ct2_model_dir = os.path.join(

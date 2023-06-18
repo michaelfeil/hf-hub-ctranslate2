@@ -43,7 +43,7 @@ model_description_encoder = """
 from hf_hub_ctranslate2 import CT2SentenceTransformer
 model = CT2SentenceTransformer(
     model_name, compute_type="int8_float16", device="cuda", 
-    convert_from_huggingface_transformers=False
+    repo_contains_ct2=True
 )
 embeddings = model.encode(
     ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
