@@ -16,7 +16,7 @@ def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
 
     embeddings = model.generate(
         text=["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
-    )
+    )['pooler_output']
     assert len(embeddings) == 3
     assert len(embeddings[0]) == len(embeddings[1])
     import numpy as np
@@ -28,9 +28,9 @@ def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
     assert scores[0][0] > scores[0][1]
     assert scores[0][1] > scores[0][2]
 
-    embeddings2 = model.encode(
+    embeddings2 = model.generate(
         ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
-    )
+    )['pooler_output']
     assert (embeddings2 == embeddings).all()
 
 def test_translator(model_name="michaelfeil/ct2fast-flan-alpaca-base"):

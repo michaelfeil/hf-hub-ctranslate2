@@ -43,7 +43,6 @@ model_description_encoder = """
 from hf_hub_ctranslate2 import CT2SentenceTransformer
 model = CT2SentenceTransformer(
     model_name, compute_type="int8_float16", device="cuda", 
-    repo_contains_ct2=True
 )
 embeddings = model.encode(
     ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
@@ -157,6 +156,7 @@ pip install hf-hub-ctranslate2>=3.0.0 ctranslate2>=3.16.0
 ```python
 # from transformers import AutoTokenizer
 model_name = "{repo_id}"
+{(f'model_name_orig='+ORG+"/"+NAME) if description == "encoder" else ""}
 {model_description}
 ```
 

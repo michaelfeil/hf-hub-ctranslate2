@@ -170,7 +170,7 @@ if torch.cuda.is_available():
 
 def test_production_ct2():
     # from transformers import AutoTokenizer
-    model_name = "intfloat/e5-small-v2"
+    model_name = "intfloat/e5-small"
 
     from hf_hub_ctranslate2 import CT2SentenceTransformer
     model = CT2SentenceTransformer(

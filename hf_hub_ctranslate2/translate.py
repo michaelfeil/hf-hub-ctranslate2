@@ -1,8 +1,8 @@
 import ctranslate2
+import functools
 
 try:
     from transformers import AutoTokenizer
-
     autotokenizer_ok = True
 except ImportError:
     AutoTokenizer = object
@@ -353,8 +353,6 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
         )
         self.device = device
         if device == "cuda":
-            import functools
-
             try:
                 import torch
             except ImportError:
@@ -364,6 +362,7 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             self.tensor_decode_method = functools.partial(
                 torch.as_tensor, device=device
             )
+            self.input_dtype=torch.int32
         else:
             try:
                 import numpy as np
@@ -375,17 +374,19 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
     def _forward(self, features, *args, **kwds):
         input_ids = features["input_ids"]
-        length = features["attention_mask"].sum(1)
-        return self.model.forward_batch(input_ids, length, **kwds)
+        tokens_out = self.model.forward_batch(input_ids, *args,  **kwds)
+        outputs = dict(
+            pooler_output = self.tensor_decode_method(tokens_out.pooler_output),
+            last_hidden_state = self.tensor_decode_method(tokens_out.last_hidden_state),
+            attention_mask=features["attention_mask"]
+        )
+        return outputs
 
     def tokenize_encode(self, text, *args, **kwargs):
         return self.tokenizer(text)
 
     def tokenize_decode(self, tokens_out, *args, **kwargs):
-        return dict(
-            pooler_output = self.tensor_decode_method(tokens_out.pooler_output),
-            last_hidden_state = self.tensor_decode_method(tokens_out.last_hidden_state)
-        )
+        return tokens_out
 
     def generate(
         self,
