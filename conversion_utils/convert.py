@@ -40,9 +40,29 @@ outputs = model.generate(
 print(outputs)"""
 
 model_description_encoder = """
+from hf_hub_ctranslate2 import EncoderCT2fromHfHub
+model = TranslatorCT2fromHfHub(
+        # load in int8 on CUDA
+        model_name_or_path=model_name,
+        device="cuda",
+        compute_type="int8_float16",
+)
+outputs = model.generate(
+    text=["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
+    max_length=64,
+)
+# perform downstream tasks on outputs
+outputs["pooler_output"]
+outputs["last_hidden_state"]
+outputs["attention_mask"]
+
+# alternative, use SentenceTransformer Mix-In
+# for end-to-end Sentence embeddings generation
+# not pulling from this repo
+
 from hf_hub_ctranslate2 import CT2SentenceTransformer
 model = CT2SentenceTransformer(
-    model_name, compute_type="int8_float16", device="cuda", 
+    model_name_orig, compute_type="int8_float16", device="cuda", 
 )
 embeddings = model.encode(
     ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
