@@ -185,7 +185,9 @@ def test_production_ct2():
     )
     
     scores = (embeddings @ embeddings.T) * 100
-    assert scores 
+    assert 100.05 > scores[0][0] >= 99.95
+    assert scores[0][0] > scores[0][1]
+    assert scores[0][1] > scores[0][2]
 
 if __name__ == "__main__":
     unittest.main()
