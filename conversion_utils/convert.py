@@ -264,6 +264,7 @@ if __name__ == "__main__":
         "intfloat/e5-large",
         "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
         "sentence-transformers/all-MiniLM-L6-v2",
+        "sentence-transformers/all-MiniLM-L12-v2",
         "setu4993/LaBSE",
     ]
     for m in encoders:
