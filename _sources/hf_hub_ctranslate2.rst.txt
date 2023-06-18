@@ -12,6 +12,14 @@ Subpackages
 Submodules
 ----------
 
+hf\_hub\_ctranslate2.ct2\_sentence\_transformers module
+-------------------------------------------------------
+
+.. automodule:: hf_hub_ctranslate2.ct2_sentence_transformers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 hf\_hub\_ctranslate2.translate module
 -------------------------------------
 

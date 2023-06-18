@@ -1,0 +1,30 @@
+hf\_hub\_ctranslate2.ct2\_sentence\_transformers
+================================================
+
+.. automodule:: hf_hub_ctranslate2.ct2_sentence_transformers
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      CT2SentenceTransformer
+      CT2Transformer
+   
+   
+
+   
+   
+   
+
+
+

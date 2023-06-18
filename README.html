@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 2.0.10 documentation</title>
+  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 2.11.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -30,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> hf_hub_ctranslate2
           </a>
               <div class="version">
-                2.0.10
+                2.11.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -42,12 +42,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">hf_hub_ctranslate2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage:</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#decoder-only-transformer">Decoder-only Transformer:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#encoder-decoder">Encoder-Decoder:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#encoder-decoder-for-multilingual-translations-m2m-100">Encoder-Decoder for multilingual translations (m2m-100):</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decoder-only-transformer">Decoder-only Transformer:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoder-decoder">Encoder-Decoder:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoder-decoder-for-multilingual-translations-m2m-100">Encoder-Decoder for multilingual translations (m2m-100):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoder-only-sentence-transformers">Encoder-only Sentence Transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoder-only">Encoder-only</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pypi-install">PYPI Install</a></li>
 </ul>
 </li>
@@ -95,8 +95,9 @@
 <hr class="docutils" />
 <section id="usage">
 <h2>Usage:<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+</section>
 <section id="decoder-only-transformer">
-<h3>Decoder-only Transformer:<a class="headerlink" href="#decoder-only-transformer" title="Permalink to this headline"></a></h3>
+<h2>Decoder-only Transformer:<a class="headerlink" href="#decoder-only-transformer" title="Permalink to this headline"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)</span>
 <span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">TranslatorCT2fromHfHub</span><span class="p">,</span> <span class="n">GeneratorCT2fromHfHub</span>
 
@@ -113,8 +114,9 @@
 </div>
 </section>
 <section id="encoder-decoder">
-<h3>Encoder-Decoder:<a class="headerlink" href="#encoder-decoder" title="Permalink to this headline"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># download ctranslate.Translator repos from Huggingface Hub (T5, ..)</span>
+<h2>Encoder-Decoder:<a class="headerlink" href="#encoder-decoder" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">TranslatorCT2fromHfHub</span>
+<span class="c1"># download ctranslate.Translator repos from Huggingface Hub (T5, ..)</span>
 <span class="n">model_name_2</span> <span class="o">=</span> <span class="s2">&quot;michaelfeil/ct2fast-flan-alpaca-base&quot;</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">TranslatorCT2fromHfHub</span><span class="p">(</span>
         <span class="c1"># load in int8 on CUDA</span>
@@ -133,8 +135,9 @@
 </div>
 </section>
 <section id="encoder-decoder-for-multilingual-translations-m2m-100">
-<h3>Encoder-Decoder for multilingual translations (m2m-100):<a class="headerlink" href="#encoder-decoder-for-multilingual-translations-m2m-100" title="Permalink to this headline"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">MultiLingualTranslatorCT2fromHfHub</span><span class="p">(</span>
+<h2>Encoder-Decoder for multilingual translations (m2m-100):<a class="headerlink" href="#encoder-decoder-for-multilingual-translations-m2m-100" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">MultiLingualTranslatorCT2fromHfHub</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">MultiLingualTranslatorCT2fromHfHub</span><span class="p">(</span>
     <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;michaelfeil/ct2fast-m2m100_418M&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">compute_type</span><span class="o">=</span><span class="s2">&quot;int8&quot;</span><span class="p">,</span>
     <span class="n">tokenizer</span><span class="o">=</span><span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;facebook/m2m100_418M&quot;</span><span class="p">)</span>
 <span class="p">)</span>
@@ -147,6 +150,40 @@
 </pre></div>
 </div>
 </section>
+<section id="encoder-only-sentence-transformers">
+<h2>Encoder-only Sentence Transformers<a class="headerlink" href="#encoder-only-sentence-transformers" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">CT2SentenceTransformer</span>
+<span class="n">model_name_pytorch</span> <span class="o">=</span> <span class="s2">&quot;intfloat/e5-small&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">CT2SentenceTransformer</span><span class="p">(</span>
+    <span class="n">model_name_pytorch</span><span class="p">,</span> <span class="n">compute_type</span><span class="o">=</span><span class="s2">&quot;int8&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> 
+<span class="p">)</span>
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;I like soccer&quot;</span><span class="p">,</span> <span class="s2">&quot;I like tennis&quot;</span><span class="p">,</span> <span class="s2">&quot;The eiffel tower is in Paris&quot;</span><span class="p">],</span>
+    <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+    <span class="n">convert_to_numpy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">normalize_embeddings</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">embeddings</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">(</span><span class="n">embeddings</span> <span class="o">@</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+</pre></div>
+</div>
+</section>
+<section id="encoder-only">
+<h2>Encoder-only<a class="headerlink" href="#encoder-only" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">EncoderCT2fromHfHub</span>
+<span class="n">model_name</span> <span class="o">=</span> <span class="s2">&quot;michaelfeil/ct2fast-e5-small&quot;</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">EncoderCT2fromHfHub</span><span class="p">(</span>
+        <span class="c1"># load in int8 on CUDA</span>
+        <span class="n">model_name_or_path</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span>
+        <span class="n">compute_type</span><span class="o">=</span><span class="s2">&quot;int8_float16&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;I like soccer&quot;</span><span class="p">,</span> <span class="s2">&quot;I like tennis&quot;</span><span class="p">,</span> <span class="s2">&quot;The eiffel tower is in Paris&quot;</span><span class="p">],</span>
+    <span class="n">max_length</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 <hr class="docutils" />
 <section id="pypi-install">

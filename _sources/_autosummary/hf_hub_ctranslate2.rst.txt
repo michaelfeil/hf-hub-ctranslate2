@@ -27,6 +27,7 @@
    :toctree:
    :recursive:
 
+   hf_hub_ctranslate2.ct2_sentence_transformers
    hf_hub_ctranslate2.translate
    hf_hub_ctranslate2.util
 
