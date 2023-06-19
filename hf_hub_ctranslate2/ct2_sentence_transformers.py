@@ -62,7 +62,7 @@ class CT2SentenceTransformer(SentenceTransformer):
         )
 
 
-class CT2Transformer(torch.nn.Module):
+class CT2Transformer(Module):
     """Wrapper around a sentence_transformers.models.Transformer which routes the forward
     call to a CTranslate2 encoder model.
 
