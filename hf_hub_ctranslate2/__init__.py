@@ -9,4 +9,4 @@ from hf_hub_ctranslate2.translate import (
 )
 from hf_hub_ctranslate2.ct2_sentence_transformers import (CT2SentenceTransformer)
 
-__version__ = "2.0.12.0"
+__version__ = "2.12.0"
