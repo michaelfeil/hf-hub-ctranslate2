@@ -15,7 +15,8 @@ except ImportError:
 
 from typing import Any, Union, List
 import os
-
+import glob
+import shutil
 from hf_hub_ctranslate2.util import utils as _utils
 
 
@@ -34,19 +35,31 @@ class CTranslate2ModelfromHuggingfaceHub:
     ):
         # adaptions from https://github.com/guillaumekln/faster-whisper
         if os.path.isdir(model_name_or_path):
-            model_path = model_name_or_path
+            model_dir = model_name_or_path
         else:
             try:
-                model_path = _utils._download_model(
+                model_dir = _utils._download_model(
                     model_name_or_path, hub_kwargs=hub_kwargs
                 )
             except Exception:
                 hub_kwargs["local_files_only"] = True
-                model_path = _utils._download_model(
+                model_dir = _utils._download_model(
                     model_name_or_path, hub_kwargs=hub_kwargs
                 )
+
+
+        model_bin = os.path.join(model_dir, "model.bin")
+        if not os.path.exists(model_bin):
+            # 
+            shards = glob.glob(model_bin.replace(".bin","-.*of.*bin"))
+            shards = sorted(shards, key=lambda path: int(path.split(".")[-1]))
+            with open(model_bin, "wb") as model_bin_file:
+                for shard in shards:
+                    with open(shard, "rb") as shard_file:
+                        shutil.copyfileobj(shard_file, model_bin_file)
+                    os.remove(shard)
         self.model = self.ctranslate_class(
-            model_path,
+            model_dir,
             device=device,
             device_index=device_index,
             compute_type=compute_type,
@@ -56,12 +69,12 @@ class CTranslate2ModelfromHuggingfaceHub:
         if tokenizer is not None:
             self.tokenizer = tokenizer
         else:
-            if "tokenizer.json" in os.listdir(model_path):
+            if "tokenizer.json" in os.listdir(model_dir):
                 if not autotokenizer_ok:
                     raise ValueError(
                         "`pip install transformers` missing to load AutoTokenizer."
                     )
-                self.tokenizer = AutoTokenizer.from_pretrained(model_path, fast=True)
+                self.tokenizer = AutoTokenizer.from_pretrained(model_dir, fast=True)
             else:
                 raise ValueError(
                     "no suitable Tokenizer found. "
