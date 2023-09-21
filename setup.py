@@ -42,8 +42,7 @@ setup(
     ],
     extras_require={
         'sentence_transformers': [
-            'sentence_transformers>=2.2.2',
-            'torch'
+            'sentence_transformers>=2.2.2'
         ],
     },
 )
