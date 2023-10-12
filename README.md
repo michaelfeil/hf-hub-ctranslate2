@@ -17,6 +17,13 @@ Connecting Transformers on HuggingfaceHub with Ctranslate2 - a small utility for
 
 --------
 ## Usage:
+
+### PYPI Install
+```bash
+pip install hf-hub-ctranslate2
+```
+--------
+
 ## Decoder-only Transformer:
 ```python
 # download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)
@@ -66,6 +73,9 @@ outputs = model.generate(
 )
 ```
 ## Encoder-only Sentence Transformers
+Feel free to try out a new repo, using CTranslate2 for vector-embeddings: 
+https://github.com/michaelfeil/infinity
+
 ```python
 from hf_hub_ctranslate2 import CT2SentenceTransformer
 model_name_pytorch = "intfloat/e5-small"
@@ -82,7 +92,7 @@ print(embeddings.shape, embeddings)
 scores = (embeddings @ embeddings.T) * 100
 ```
 
-## Encoder-only
+## Encoder-only -> no longer recommended
 ```python
 from hf_hub_ctranslate2 import EncoderCT2fromHfHub
 model_name = "michaelfeil/ct2fast-e5-small"
@@ -98,12 +108,6 @@ outputs = model.generate(
 )
 ```
 
---------
-## PYPI Install
-```bash
-pip install hf-hub-ctranslate2
-```
---------
 
 
 
