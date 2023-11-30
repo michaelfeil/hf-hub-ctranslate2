@@ -4,6 +4,8 @@ import shutil
 import subprocess
 import re
 import datetime
+from ctranslate2.converters import TransformersConverter
+import ctranslate2
     
 def call(*args, **kwargs):
     out = subprocess.call(*args, **kwargs)
@@ -123,22 +125,24 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
     #     ]
     # )
     # call(conv_arg)
-    from ctranslate2.converters import TransformersConverter
-    converter = TransformersConverter(
-        f"{ORG}/{NAME}",
-        activation_scales=None,
-        copy_files=filtered_f,
-        load_as_float16=True,
-        revision=None,
-        low_cpu_mem_usage=True,
-        trust_remote_code=True,
-    )
-    converter.convert(
-        output_dir=str(tmp_dir),
-        vmap = None, # TODO: vmap here
-        quantization="int8_float16"  if description != "encoder" else None,
-        force = True,
-    )
+    
+    conv_arg=f"""TransformersConverter(
+    "{ORG}/{NAME}",
+    activation_scales=None,
+    copy_files={filtered_f},
+    load_as_float16=True,
+    revision=None,
+    low_cpu_mem_usage=True,
+    trust_remote_code=True,
+).convert(
+    output_dir=str(tmp_dir),
+    vmap = None, 
+    quantization={'"int8_float16"'  if description != "encoder" else None},
+    force = True,
+)
+"""
+
+    eval(conv_arg)
     
     if not "vocabulary.txt" in os.listdir(tmp_dir) and "vocab.txt" in os.listdir(
         tmp_dir
@@ -181,9 +185,7 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
         end_header = end_header[1] + 3
     else:
         end_header = 0
-    # conv_arg_nice = " ".join(conv_arg)
-    conv_arg_nice = "LLama-2 -> removed <pad> token."
-    # conv_arg_nice = conv_arg_nice.replace(os.path.expanduser("~"), "~")
+    
     if description == "generator":
         model_description = model_description_generator
     elif description == "encoder":
@@ -206,14 +208,15 @@ model_name = "{repo_id}"
 {model_description}
 ```
 
-Checkpoint compatible to [ctranslate2>=3.17.1](https://github.com/OpenNMT/CTranslate2)
+Checkpoint compatible to [ctranslate2>=3.22.0](https://github.com/OpenNMT/CTranslate2)
 and [hf-hub-ctranslate2>=2.12.0](https://github.com/michaelfeil/hf-hub-ctranslate2)
 - `compute_type=int8_float16` for `device="cuda"`
 - `compute_type=int8`  for `device="cpu"`
 
-Converted on {str(datetime.datetime.now())[:10]} using
+Converted on {str(datetime.datetime.now())[:10]} using CTranslate2=={ctranslate2.__version__} and
 ```
-{conv_arg_nice}
+from ctranslate2.converters import TransformersConverter
+{conv_arg}
 ```
 
 # Licence and other remarks:
@@ -221,6 +224,7 @@ This is just a quantized version. Licence conditions are intended to be idential
 
 # Original description
     """
+    add_string = add_string.replace(os.path.expanduser("~"), "~")
     fp = os.path.join(tmp_dir, "model.bin")
     if os.stat(f"{fp}").st_size > 15_000_000_500:
         # in chunks for 9GB
@@ -304,8 +308,8 @@ if __name__ == "__main__":
         # "meta-llama/Llama-2-7b-chat-hf",
         # "meta-llama/Llama-2-13b-hf",
         # "meta-llama/Llama-2-13b-chat-hf",
-        "meta-llama/Llama-2-70b-chat-hf",
-        "meta-llama/Llama-2-70b-hf",
+        # "microsoft/phi-1_5",
+        "microsoft/phi-1",
     ]
     translators = [
         # 'Salesforce/codet5p-770m-py', 'Salesforce/codet5p-770m',
