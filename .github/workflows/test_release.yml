@@ -82,17 +82,16 @@ jobs:
       run: |
         cd branch-dir
         pip install poetry==1.8.3
-        poetry config virtualenvs.create false
         poetry install --extras sentence_transformers --with test
     - name: create shinx docs from current branch
       # create shpinx api autodocs of opensentiment and move them to docs
       # makefile: make html build the the docs/_build/html/
       run: |
         cd branch-dir
-        sphinx-apidoc -o ./docs ./hf_hub_ctranslate2
+        poetry run sphinx-apidoc -o ./docs ./hf_hub_ctranslate2
         cp README.md ./docs
         cd docs
-        make html
+        poetry run make html
     
     - name: merge /docs/_build/ files into gh-pages branch
       run: |
