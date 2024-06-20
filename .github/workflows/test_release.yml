@@ -31,9 +31,11 @@ jobs:
         
     - name: Install dependencies
       run: |
-        pip install poetry
+        pip install poetry==1.8.3
         poetry config virtualenvs.create false
+        poetry check --lock
         poetry install --extras sentence_transformers --with test
+        
     
     - name: Lint with flake8
       run: |
@@ -79,7 +81,7 @@ jobs:
     - name: Install dependencies from current branch
       run: |
         cd branch-dir
-        pip install poetry
+        pip install poetry==1.8.3
         poetry config virtualenvs.create false
         poetry install --extras sentence_transformers --with test
     - name: create shinx docs from current branch
