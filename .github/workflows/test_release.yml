@@ -124,6 +124,8 @@ jobs:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     permissions:
       id-token: write
+    environment:
+      name: publish
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
