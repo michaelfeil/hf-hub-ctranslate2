@@ -20,21 +20,22 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ['3.7','3.8','3.9','3.10']
+        python: ['3.8','3.9','3.10']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.x
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
-        cache: 'pip'
-        cache-dependency-path: '**/requirements*.txt'
         
     - name: Install dependencies
       run: |
-        pip install -r requirements_dev.txt
-        pip install -e .[sentence_transformers]
+        pip install poetry==1.8.3
+        poetry config virtualenvs.create false
+        poetry check --lock
+        poetry install --extras sentence_transformers --with test
+        
     
     - name: Lint with flake8
       run: |
@@ -54,10 +55,10 @@ jobs:
 
     - name: Generate Report
       run: |
-        coverage run -m --source=./hf_hub_ctranslate2 pytest tests 
+        coverage run -m --source=hf_hub_ctranslate2 pytest tests 
         coverage xml
     - name: Upload coverage to Codecov for python 3.8
-      if: ${{ matrix.python == '3.8' }}
+      if: ${{ matrix.python == '3.10' }}
       uses: codecov/codecov-action@v2
 
   deploy_docs:
@@ -67,28 +68,22 @@ jobs:
     # only run if pytest successfull
     steps:
     - name: Checkout current branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: 'branch-dir'
         
     - name: Checkout gh-pages branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: 'gh-pages'
         path: 'gh-pages-dir'
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        cache: 'pip'
-        cache-dependency-path: '**/requirements*.txt'
-
     - name: Install dependencies from current branch
       run: |
         cd branch-dir
-        pip install -r requirements_dev.txt
-        pip install -e .[sentence_transformers]
+        pip install poetry==1.8.3
+        poetry config virtualenvs.create false
+        poetry install --extras sentence_transformers --with test
     - name: create shinx docs from current branch
       # create shpinx api autodocs of opensentiment and move them to docs
       # makefile: make html build the the docs/_build/html/
@@ -131,11 +126,11 @@ jobs:
     permissions:
       id-token: write
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.8
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.10
     
     - name: Install pypa/build
       run: |

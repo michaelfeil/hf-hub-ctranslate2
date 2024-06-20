@@ -7,6 +7,7 @@ from hf_hub_ctranslate2 import (
 
 from hf_hub_ctranslate2.util import utils as _utils
 from transformers import AutoTokenizer
+import numpy as np
 
 
 def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
@@ -19,7 +20,6 @@ def test_encoder(model_name="michaelfeil/ct2fast-e5-small-v2"):
     )["pooler_output"]
     assert len(embeddings) == 3
     assert len(embeddings[0]) == len(embeddings[1])
-    import numpy as np
 
     assert isinstance(embeddings, np.ndarray)
     embeddings_norm = embeddings / (embeddings**2).sum(axis=1, keepdims=True) ** 0.5
