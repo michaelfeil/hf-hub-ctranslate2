@@ -7,8 +7,8 @@ from hf_hub_ctranslate2.translate import (
     TranslatorCT2fromHfHub,
     GeneratorCT2fromHfHub,
     MultiLingualTranslatorCT2fromHfHub,
-    EncoderCT2fromHfHub
+    EncoderCT2fromHfHub,
 )
-from hf_hub_ctranslate2.ct2_sentence_transformers import (CT2SentenceTransformer)
+from hf_hub_ctranslate2.ct2_sentence_transformers import CT2SentenceTransformer
 
 __version__ = importlib.metadata.version("hf_hub_ctranslate2")

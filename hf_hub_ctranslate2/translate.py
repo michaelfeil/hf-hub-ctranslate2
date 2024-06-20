@@ -3,6 +3,7 @@ import functools
 
 try:
     from transformers import AutoTokenizer
+
     autotokenizer_ok = True
 except ImportError:
     AutoTokenizer = object
@@ -47,11 +48,10 @@ class CTranslate2ModelfromHuggingfaceHub:
                     model_name_or_path, hub_kwargs=hub_kwargs
                 )
 
-
         model_bin = os.path.join(model_dir, "model.bin")
         if not os.path.exists(model_bin):
-            # 
-            shards = glob.glob(model_bin.replace(".bin","-.*of.*bin"))
+            #
+            shards = glob.glob(model_bin.replace(".bin", "-.*of.*bin"))
             shards = sorted(shards, key=lambda path: int(path.split(".")[-1]))
             with open(model_bin, "wb") as model_bin_file:
                 for shard in shards:
@@ -375,7 +375,7 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
             self.tensor_decode_method = functools.partial(
                 torch.as_tensor, device=device
             )
-            self.input_dtype=torch.int32
+            self.input_dtype = torch.int32
         else:
             try:
                 import numpy as np
@@ -387,11 +387,11 @@ class EncoderCT2fromHfHub(CTranslate2ModelfromHuggingfaceHub):
 
     def _forward(self, features, *args, **kwds):
         input_ids = features["input_ids"]
-        tokens_out = self.model.forward_batch(input_ids, *args,  **kwds)
+        tokens_out = self.model.forward_batch(input_ids, *args, **kwds)
         outputs = dict(
-            pooler_output = self.tensor_decode_method(tokens_out.pooler_output),
-            last_hidden_state = self.tensor_decode_method(tokens_out.last_hidden_state),
-            attention_mask=features["attention_mask"]
+            pooler_output=self.tensor_decode_method(tokens_out.pooler_output),
+            last_hidden_state=self.tensor_decode_method(tokens_out.last_hidden_state),
+            attention_mask=features["attention_mask"],
         )
         return outputs
 

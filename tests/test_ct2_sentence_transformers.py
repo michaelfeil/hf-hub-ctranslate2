@@ -2,7 +2,6 @@
 Computes embeddings
 """
 
-
 import unittest
 from sentence_transformers import SentenceTransformer
 import numpy as np
@@ -168,14 +167,17 @@ if torch.cuda.is_available():
         def setUp(self):
             super().setUp(compute_type="float32", device="cuda")
 
+
 def test_readme_docstring_ct2():
     # from transformers import AutoTokenizer
     model_name = "intfloat/e5-small"
 
     from hf_hub_ctranslate2 import CT2SentenceTransformer
-    model = CT2SentenceTransformer(
-        model_name, compute_type="int8", device="cpu",
 
+    model = CT2SentenceTransformer(
+        model_name,
+        compute_type="int8",
+        device="cpu",
     )
     embeddings = model.encode(
         ["I like soccer", "I like tennis", "The eiffel tower is in Paris"],
@@ -183,11 +185,12 @@ def test_readme_docstring_ct2():
         convert_to_numpy=True,
         normalize_embeddings=True,
     )
-    
+
     scores = (embeddings @ embeddings.T) * 100
     assert 100.05 > scores[0][0] >= 99.95
     assert scores[0][0] > scores[0][1]
     assert scores[0][1] > scores[0][2]
+
 
 if __name__ == "__main__":
     unittest.main()
