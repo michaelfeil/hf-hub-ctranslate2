@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 2.12.0 documentation</title>
+  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 2.13.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -28,7 +30,7 @@
             <a href="index.html" class="icon icon-home"> hf_hub_ctranslate2
           </a>
               <div class="version">
-                2.12.0
+                2.13.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -70,7 +72,7 @@
            <div itemprop="articleBody">
              
   <section id="hf-hub-ctranslate2">
-<h1>hf_hub_ctranslate2<a class="headerlink" href="#hf-hub-ctranslate2" title="Permalink to this headline"></a></h1>
+<h1>hf_hub_ctranslate2<a class="headerlink" href="#hf-hub-ctranslate2" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="hf_hub_ctranslate2.html">hf_hub_ctranslate2 package</a><ul>
@@ -84,8 +86,49 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="hf_hub_ctranslate2.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hf_hub_ctranslate2.html#module-hf_hub_ctranslate2.ct2_sentence_transformers">hf_hub_ctranslate2.ct2_sentence_transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="hf_hub_ctranslate2.html#module-hf_hub_ctranslate2.translate">hf_hub_ctranslate2.translate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hf_hub_ctranslate2.html#module-hf_hub_ctranslate2.ct2_sentence_transformers">hf_hub_ctranslate2.ct2_sentence_transformers module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2SentenceTransformer"><code class="docutils literal notranslate"><span class="pre">CT2SentenceTransformer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2Transformer"><code class="docutils literal notranslate"><span class="pre">CT2Transformer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2Transformer.children"><code class="docutils literal notranslate"><span class="pre">CT2Transformer.children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2Transformer.forward"><code class="docutils literal notranslate"><span class="pre">CT2Transformer.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2Transformer.half"><code class="docutils literal notranslate"><span class="pre">CT2Transformer.half()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2Transformer.to"><code class="docutils literal notranslate"><span class="pre">CT2Transformer.to()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.ct2_sentence_transformers.CT2Transformer.tokenize"><code class="docutils literal notranslate"><span class="pre">CT2Transformer.tokenize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hf_hub_ctranslate2.html#module-hf_hub_ctranslate2.translate">hf_hub_ctranslate2.translate module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub"><code class="docutils literal notranslate"><span class="pre">CTranslate2ModelfromHuggingfaceHub</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub.generate"><code class="docutils literal notranslate"><span class="pre">CTranslate2ModelfromHuggingfaceHub.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub.tokenize_decode"><code class="docutils literal notranslate"><span class="pre">CTranslate2ModelfromHuggingfaceHub.tokenize_decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.CTranslate2ModelfromHuggingfaceHub.tokenize_encode"><code class="docutils literal notranslate"><span class="pre">CTranslate2ModelfromHuggingfaceHub.tokenize_encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.EncoderCT2fromHfHub"><code class="docutils literal notranslate"><span class="pre">EncoderCT2fromHfHub</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.EncoderCT2fromHfHub.generate"><code class="docutils literal notranslate"><span class="pre">EncoderCT2fromHfHub.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.EncoderCT2fromHfHub.tokenize_decode"><code class="docutils literal notranslate"><span class="pre">EncoderCT2fromHfHub.tokenize_decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.EncoderCT2fromHfHub.tokenize_encode"><code class="docutils literal notranslate"><span class="pre">EncoderCT2fromHfHub.tokenize_encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.GeneratorCT2fromHfHub"><code class="docutils literal notranslate"><span class="pre">GeneratorCT2fromHfHub</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.GeneratorCT2fromHfHub.generate"><code class="docutils literal notranslate"><span class="pre">GeneratorCT2fromHfHub.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.GeneratorCT2fromHfHub.tokenize_decode"><code class="docutils literal notranslate"><span class="pre">GeneratorCT2fromHfHub.tokenize_decode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.MultiLingualTranslatorCT2fromHfHub"><code class="docutils literal notranslate"><span class="pre">MultiLingualTranslatorCT2fromHfHub</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.MultiLingualTranslatorCT2fromHfHub.generate"><code class="docutils literal notranslate"><span class="pre">MultiLingualTranslatorCT2fromHfHub.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.MultiLingualTranslatorCT2fromHfHub.tokenize_decode"><code class="docutils literal notranslate"><span class="pre">MultiLingualTranslatorCT2fromHfHub.tokenize_decode()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.MultiLingualTranslatorCT2fromHfHub.tokenize_encode"><code class="docutils literal notranslate"><span class="pre">MultiLingualTranslatorCT2fromHfHub.tokenize_encode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.TranslatorCT2fromHfHub"><code class="docutils literal notranslate"><span class="pre">TranslatorCT2fromHfHub</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.TranslatorCT2fromHfHub.generate"><code class="docutils literal notranslate"><span class="pre">TranslatorCT2fromHfHub.generate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="hf_hub_ctranslate2.html#hf_hub_ctranslate2.translate.TranslatorCT2fromHfHub.tokenize_decode"><code class="docutils literal notranslate"><span class="pre">TranslatorCT2fromHfHub.tokenize_decode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="hf_hub_ctranslate2.html#module-hf_hub_ctranslate2">Module contents</a></li>
 </ul>
 </li>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 2.12.0 documentation</title>
+  <title>hf_hub_ctranslate2 &mdash; hf_hub_ctranslate2 2.13.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -14,7 +14,9 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -30,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> hf_hub_ctranslate2
           </a>
               <div class="version">
-                2.12.0
+                2.13.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -42,13 +44,15 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">hf_hub_ctranslate2</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#usage">Usage:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pypi-install">PYPI Install</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#decoder-only-transformer">Decoder-only Transformer:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#encoder-decoder">Encoder-Decoder:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#encoder-decoder-for-multilingual-translations-m2m-100">Encoder-Decoder for multilingual translations (m2m-100):</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#encoder-only-sentence-transformers">Encoder-only Sentence Transformers</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#encoder-only">Encoder-only</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pypi-install">PYPI Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#encoder-only-no-longer-recommended">Encoder-only -&gt; no longer recommended</a></li>
 </ul>
 </li>
 </ul>
@@ -81,7 +85,7 @@
            <div itemprop="articleBody">
              
   <section id="hf-hub-ctranslate2">
-<h1>hf_hub_ctranslate2<a class="headerlink" href="#hf-hub-ctranslate2" title="Permalink to this headline"></a></h1>
+<h1>hf_hub_ctranslate2<a class="headerlink" href="#hf-hub-ctranslate2" title="Permalink to this heading"></a></h1>
 <p>Connecting Transformers on HuggingfaceHub with Ctranslate2 - a small utility for keeping tokenizer and model around Huggingface Hub.</p>
 <p><a class="reference external" href="https://codecov.io/gh/michaelfeil/hf-hub-ctranslate2"><img alt="codecov" src="https://codecov.io/gh/michaelfeil/hf-hub-ctranslate2/branch/main/graph/badge.svg?token=U9VIEFEELS" /></a><img alt="CI pytest" src="https://github.com/michaelfeil/hf-hub-ctranslate2/actions/workflows/test_release.yml/badge.svg" /></p>
 <p><a class="reference external" href="https://michaelfeil.github.io/hf-hub-ctranslate2/">Read the docs</a></p>
@@ -94,10 +98,17 @@
 <a class="reference external" href="https://linkedin.com/in/michael-feil"><img alt="LinkedIn" src="https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&amp;logo=linkedin&amp;colorB=555" /></a></p>
 <hr class="docutils" />
 <section id="usage">
-<h2>Usage:<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
+<h2>Usage:<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<section id="pypi-install">
+<h3>PYPI Install<a class="headerlink" href="#pypi-install" title="Permalink to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>hf-hub-ctranslate2
+</pre></div>
+</div>
 </section>
+</section>
+<hr class="docutils" />
 <section id="decoder-only-transformer">
-<h2>Decoder-only Transformer:<a class="headerlink" href="#decoder-only-transformer" title="Permalink to this headline"></a></h2>
+<h2>Decoder-only Transformer:<a class="headerlink" href="#decoder-only-transformer" title="Permalink to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># download ctranslate.Generator repos from Huggingface Hub (GPT-J, ..)</span>
 <span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">TranslatorCT2fromHfHub</span><span class="p">,</span> <span class="n">GeneratorCT2fromHfHub</span>
 
@@ -114,7 +125,7 @@
 </div>
 </section>
 <section id="encoder-decoder">
-<h2>Encoder-Decoder:<a class="headerlink" href="#encoder-decoder" title="Permalink to this headline"></a></h2>
+<h2>Encoder-Decoder:<a class="headerlink" href="#encoder-decoder" title="Permalink to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">TranslatorCT2fromHfHub</span>
 <span class="c1"># download ctranslate.Translator repos from Huggingface Hub (T5, ..)</span>
 <span class="n">model_name_2</span> <span class="o">=</span> <span class="s2">&quot;michaelfeil/ct2fast-flan-alpaca-base&quot;</span>
@@ -135,7 +146,7 @@
 </div>
 </section>
 <section id="encoder-decoder-for-multilingual-translations-m2m-100">
-<h2>Encoder-Decoder for multilingual translations (m2m-100):<a class="headerlink" href="#encoder-decoder-for-multilingual-translations-m2m-100" title="Permalink to this headline"></a></h2>
+<h2>Encoder-Decoder for multilingual translations (m2m-100):<a class="headerlink" href="#encoder-decoder-for-multilingual-translations-m2m-100" title="Permalink to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">MultiLingualTranslatorCT2fromHfHub</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">MultiLingualTranslatorCT2fromHfHub</span><span class="p">(</span>
     <span class="n">model_name_or_path</span><span class="o">=</span><span class="s2">&quot;michaelfeil/ct2fast-m2m100_418M&quot;</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">compute_type</span><span class="o">=</span><span class="s2">&quot;int8&quot;</span><span class="p">,</span>
@@ -151,7 +162,9 @@
 </div>
 </section>
 <section id="encoder-only-sentence-transformers">
-<h2>Encoder-only Sentence Transformers<a class="headerlink" href="#encoder-only-sentence-transformers" title="Permalink to this headline"></a></h2>
+<h2>Encoder-only Sentence Transformers<a class="headerlink" href="#encoder-only-sentence-transformers" title="Permalink to this heading"></a></h2>
+<p>Feel free to try out a new repo, using CTranslate2 for vector-embeddings:
+https://github.com/michaelfeil/infinity</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">CT2SentenceTransformer</span>
 <span class="n">model_name_pytorch</span> <span class="o">=</span> <span class="s2">&quot;intfloat/e5-small&quot;</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">CT2SentenceTransformer</span><span class="p">(</span>
@@ -168,8 +181,8 @@
 </pre></div>
 </div>
 </section>
-<section id="encoder-only">
-<h2>Encoder-only<a class="headerlink" href="#encoder-only" title="Permalink to this headline"></a></h2>
+<section id="encoder-only-no-longer-recommended">
+<h2>Encoder-only -&gt; no longer recommended<a class="headerlink" href="#encoder-only-no-longer-recommended" title="Permalink to this heading"></a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">hf_hub_ctranslate2</span> <span class="kn">import</span> <span class="n">EncoderCT2fromHfHub</span>
 <span class="n">model_name</span> <span class="o">=</span> <span class="s2">&quot;michaelfeil/ct2fast-e5-small&quot;</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">EncoderCT2fromHfHub</span><span class="p">(</span>
@@ -184,14 +197,6 @@
 <span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<hr class="docutils" />
-<section id="pypi-install">
-<h2>PYPI Install<a class="headerlink" href="#pypi-install" title="Permalink to this headline"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>hf-hub-ctranslate2
-</pre></div>
-</div>
-<hr class="docutils" />
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 </section>
