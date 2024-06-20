@@ -20,7 +20,7 @@ pytest= "6.2.5"
 pytest-ordering = "0.6"
 Sphinx = "5.*"
 sphinx-rtd-theme = "1.0.0"
-coverage = "6.2"
+coverage = "7.5"
 flake8 = "*"
 pre-commit = "*"
 myst-parser = {version="1.*",extras=["sphinx"]}
