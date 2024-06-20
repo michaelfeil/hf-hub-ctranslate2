@@ -23,13 +23,11 @@ jobs:
         python: ['3.8','3.9','3.10','3.11','3.12']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.x
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python }}
-        cache: 'pip'
-        cache-dependency-path: '**/requirements*.txt'
         
     - name: Install dependencies
       run: |
@@ -68,12 +66,12 @@ jobs:
     # only run if pytest successfull
     steps:
     - name: Checkout current branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         path: 'branch-dir'
         
     - name: Checkout gh-pages branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         ref: 'gh-pages'
         path: 'gh-pages-dir'
@@ -126,7 +124,7 @@ jobs:
     permissions:
       id-token: write
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
