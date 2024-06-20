@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ['3.8','3.9','3.10','3.11','3.12']
+        python: ['3.8','3.9','3.10','3.11']
 
     steps:
     - uses: actions/checkout@v4
@@ -53,10 +53,10 @@ jobs:
 
     - name: Generate Report
       run: |
-        coverage run -m --source=./hf_hub_ctranslate2 pytest tests 
+        coverage run -m --source=hf_hub_ctranslate2 pytest tests 
         coverage xml
     - name: Upload coverage to Codecov for python 3.8
-      if: ${{ matrix.python == '3.8' }}
+      if: ${{ matrix.python == '3.10' }}
       uses: codecov/codecov-action@v2
 
   deploy_docs:
