@@ -8,29 +8,28 @@ readme = "README.md"
 packages = [{include = "hf_hub_ctranslate2"}]
 
 [tool.poetry.dependencies]
-python = ">=3.7,<3.13"
-# basics, pin numpy <2 for onnx
+python = ">=3.8,<3.13"
+numpy = "*"
 ctranslate2 = ">=3.16.0"
 transformers = ">=4.28.0"
 huggingface-hub = "*"
-sentence_transformers = {version="==2.2.2", optional=true}
+sentence_transformers = {version="2.2.2", optional=true}
 
 [tool.poetry.group.test.dependencies]
 pytest= "6.2.5"
 pytest-ordering = "0.6"
-Sphinx = "~4.3.2"
+Sphinx = "5.*"
 sphinx-rtd-theme = "1.0.0"
 coverage = "6.2"
 flake8 = "*"
 pre-commit = "*"
-myst-parser[sphinx] = "2.0.0"
+myst-parser = {version="1.*",extras=["sphinx"]}
 mkdocs = "*"
 sentencepiece = "*"
 typing_extensions = "*"
 
-
 [tool.poetry.extras]
-sentence_transformers=[sentence_transformers]
+sentence_transformers=["sentence_transformers"]
 
 [build-system]
 requires = ["poetry-core"]
