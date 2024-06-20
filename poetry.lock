@@ -2458,4 +2458,4 @@ sentence-transformers = ["sentence_transformers"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.8,<3.13"
-content-hash = "ea369c9fe272cb609477a5e19c74c1b83ea58203e544cd2d21ebf3d565934c3f"
+content-hash = "0dfca0e1166044bf653fa817c50c83c05afdd3e1cade1cc9a7aa07da739e339c"
