@@ -3,22 +3,29 @@ import logging
 import os
 
 from typing import Union
+
 try:
     import torch
-    Module=torch.nn.Module
+
+    Module = torch.nn.Module
     IS_torch_IMPORTED = True
 except ImportError:
     IS_torch_IMPORTED = False
+
     class Module:
         pass
 
+
 try:
     from sentence_transformers import SentenceTransformer
+
     IS_SentenceTransformer_IMPORTED = True
 except ImportError:
     IS_SentenceTransformer_IMPORTED = False
+
     class SentenceTransformer:
         pass
+
 
 logger = logging.getLogger(__name__)
 
@@ -46,13 +53,17 @@ class CT2SentenceTransformer(SentenceTransformer):
         *args,
         compute_type="default",
         force=False,
-        vmap: Union[str,None] = None,
+        vmap: Union[str, None] = None,
         **kwargs
     ):
         if not IS_SentenceTransformer_IMPORTED:
-            raise ValueError("Installation requires sentence_transformers. Please `pip install hf_hub_ctranslate2[sentence_transformers]`")
+            raise ValueError(
+                "Installation requires sentence_transformers. Please `pip install hf_hub_ctranslate2[sentence_transformers]`"
+            )
         if not IS_torch_IMPORTED:
-            raise ValueError("Installation requires torch. Please `pip install hf_hub_ctranslate2[sentence_transformers]`")
+            raise ValueError(
+                "Installation requires torch. Please `pip install hf_hub_ctranslate2[sentence_transformers]`"
+            )
         super().__init__(*args, **kwargs)
         self[0] = CT2Transformer(
             self[0],
@@ -79,10 +90,12 @@ class CT2Transformer(Module):
         transformer,
         compute_type="default",
         force=False,
-        vmap: Union[str,None] = None,
+        vmap: Union[str, None] = None,
     ):
         if not IS_torch_IMPORTED:
-            raise ValueError("Installation requires torch. Please `pip install torch>=2.0.0`")
+            raise ValueError(
+                "Installation requires torch. Please `pip install torch>=2.0.0`"
+            )
         super().__init__()
         try:
             import ctranslate2
@@ -117,27 +130,31 @@ class CT2Transformer(Module):
     def children(self):
         # Do not consider the "transformer" attribute as a child module so that it will stay on the CPU.
         return []
-    
+
     def half(self):
         self.to(dtype="float16")
         return self
-        
+
     def to(self, device: str = "", dtype: str = ""):
         if not isinstance(device, str):
             raise ValueError("param `dtype` needs to be of type str")
         if not isinstance(dtype, str):
             raise ValueError("param `dtype` needs to be of type str")
-        
+
         if dtype and not ("float" in dtype or "int" in dtype):
-            raise ValueError("dtype should be one of `int8`, `float16`, `int8_float16`, `float32`")
+            raise ValueError(
+                "dtype should be one of `int8`, `float16`, `int8_float16`, `float32`"
+            )
         elif dtype:
             new_dtype = True
             self.compute_type = new_dtype
         else:
             new_dtype = False
-        
+
         if device and (device.startswith("cuda") or device.startswith("cpu")):
-            raise ValueError("for param `device`, f'cuda:{index}' or f'cpu:{index}' are supported")
+            raise ValueError(
+                "for param `device`, f'cuda:{index}' or f'cpu:{index}' are supported"
+            )
         elif device:
             if ":" in device:
                 new_device = device.split(":")[0]
@@ -148,8 +165,8 @@ class CT2Transformer(Module):
         else:
             new_device = False
             new_index = False
-            
-        if new_device or new_dtype or new_index:        
+
+        if new_device or new_dtype or new_index:
             self.encoder = self._ctranslate2_encoder_cls(
                 self.ct2_model_dir,
                 device=new_device,
@@ -158,7 +175,6 @@ class CT2Transformer(Module):
                 compute_type=self.compute_type,
             )
         return self
-        
 
     def forward(self, features):
         """overwrites torch forward method with CTranslate model"""

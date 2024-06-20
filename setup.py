@@ -41,8 +41,6 @@ setup(
         "typing_extensions",
     ],
     extras_require={
-        'sentence_transformers': [
-            'sentence_transformers>=2.2.2'
-        ],
+        "sentence_transformers": ["sentence_transformers>=2.2.2"],
     },
 )

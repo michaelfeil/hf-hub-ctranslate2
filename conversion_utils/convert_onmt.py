@@ -6,11 +6,13 @@ import re
 import datetime
 from ctranslate2.converters import TransformersConverter
 import ctranslate2
-    
+
+
 def call(*args, **kwargs):
     out = subprocess.call(*args, **kwargs)
     if out != 0:
         raise ValueError(f"Output: {out}")
+
 
 model_description_generator = """
 from hf_hub_ctranslate2 import GeneratorCT2fromHfHub
@@ -103,7 +105,7 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
         if not ("model" in f or "config.json" == f or f.endswith(".py"))
     ]
     if "config.json" in files:
-        with open(os.path.join(path,"config.json"),"r") as f:
+        with open(os.path.join(path, "config.json"), "r") as f:
             transformers_config = json.load(f)
 
     # conv_arg = (
@@ -125,8 +127,8 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
     #     ]
     # )
     # call(conv_arg)
-    
-    conv_arg=f"""TransformersConverter(
+
+    conv_arg = f"""TransformersConverter(
     "{ORG}/{NAME}",
     activation_scales=None,
     copy_files={filtered_f},
@@ -143,7 +145,7 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
 """
 
     eval(conv_arg)
-    
+
     if not "vocabulary.txt" in os.listdir(tmp_dir) and "vocab.txt" in os.listdir(
         tmp_dir
     ):
@@ -154,21 +156,17 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
     if not "vocabulary.txt" in os.listdir(tmp_dir) and "vocabulary.json" in os.listdir(
         tmp_dir
     ):
-        with open(os.path.join(tmp_dir,"vocabulary.json"),"r") as f:
+        with open(os.path.join(tmp_dir, "vocabulary.json"), "r") as f:
             vocab = json.load(f)
-        with open(os.path.join(tmp_dir,"vocabulary.txt"),"w") as f:
-            f.write('\n'.join(str(i) for i in vocab))
-            
-        
+        with open(os.path.join(tmp_dir, "vocabulary.txt"), "w") as f:
+            f.write("\n".join(str(i) for i in vocab))
+
     if "config.json" in os.listdir(tmp_dir):
-        with open(os.path.join(tmp_dir,"config.json"),"r") as f:
+        with open(os.path.join(tmp_dir, "config.json"), "r") as f:
             ct2_config = json.load(f)
-        
-        new_config = {
-            **transformers_config,
-            **ct2_config
-        }
-        with open(os.path.join(tmp_dir,"config.json"),"w") as f:
+
+        new_config = {**transformers_config, **ct2_config}
+        with open(os.path.join(tmp_dir, "config.json"), "w") as f:
             json.dump(new_config, f, indent=4)
 
     with open(os.path.join(tmp_dir, "README.md"), "r") as f:
@@ -185,7 +183,7 @@ def convert(NAME="opus-mt-en-fr", ORG="Helsinki-NLP", description="generator"):
         end_header = end_header[1] + 3
     else:
         end_header = 0
-    
+
     if description == "generator":
         model_description = model_description_generator
     elif description == "encoder":
@@ -220,13 +218,18 @@ This is just a quantized version. License conditions are intended to be idential
     fp = os.path.join(tmp_dir, "model.bin")
     if os.stat(f"{fp}").st_size > 15_000_000_500:
         # in chunks for 9GB
-        call([f"split","-d","-b","9GB",f"{fp}",f"{fp}-"])
-        call([f"rm",f"{fp}"])
-        all_chunks = list(sorted([f for f in os.listdir(tmp_dir) if f"model.bin-" in f]))
+        call([f"split", "-d", "-b", "9GB", f"{fp}", f"{fp}-"])
+        call([f"rm", f"{fp}"])
+        all_chunks = list(
+            sorted([f for f in os.listdir(tmp_dir) if f"model.bin-" in f])
+        )
         max_chunk_num = all_chunks[-1].split("-")[-1]
         for ck in all_chunks:
             chunk_num = ck.split("-")[-1]
-            shutil.move(os.path.join(tmp_dir,ck), os.path.join(tmp_dir, f"model-{chunk_num}-of-{max_chunk_num}.bin"))
+            shutil.move(
+                os.path.join(tmp_dir, ck),
+                os.path.join(tmp_dir, f"model-{chunk_num}-of-{max_chunk_num}.bin"),
+            )
 
     with open(os.path.join(tmp_dir, "README.md"), "w") as f:
         f.write(content[:end_header] + add_string + content[end_header:])
