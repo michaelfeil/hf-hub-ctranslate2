@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hf_hub_ctranslate2"
-version = "2.13.0"
+version = "2.13.1"
 description = "Connecting Transfromers on HuggingfaceHub with CTranslate2."
 authors = ["michaelfeil <no-reply@michaelfeil.eu>"]
 license = "MIT"
