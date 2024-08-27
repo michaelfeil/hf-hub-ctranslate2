@@ -5,6 +5,8 @@ description = "Connecting Transfromers on HuggingfaceHub with CTranslate2."
 authors = ["michaelfeil <no-reply@michaelfeil.eu>"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/michaelfeil/hf-hub-ctranslate2"
+repository = "https://github.com/michaelfeil/hf-hub-ctranslate2"
 packages = [{include = "hf_hub_ctranslate2"}]
 
 [tool.poetry.dependencies]
